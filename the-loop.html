@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Loop | ZamKim</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&family=Spectral:wght@400;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&family=Spectral:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap');
 
     body {
       font-family: 'Spectral', serif;
@@ -73,6 +73,40 @@
       padding-bottom: 28px;
     }
 
+    .manifesto-link-wrapper {
+      margin-top: 16px;
+    }
+
+    .manifesto-link {
+      font-family: 'Nanum Myeongjo', serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      color: inherit;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+      text-decoration-color: rgba(150, 150, 150, 0.5);
+      opacity: 0.9;
+      cursor: pointer;
+      transition: text-decoration-color 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .manifesto-link:hover {
+      text-decoration-color: currentColor;
+    }
+
+    .manifesto-link .arrow {
+      display: inline-block;
+      transition: transform 0.25s ease;
+    }
+
+    .manifesto-link:hover .arrow {
+      transform: translateX(3px);
+    }
+
     .entry {
       border-bottom: 1px solid rgba(150, 150, 150, 0.2);
     }
@@ -138,34 +172,51 @@
       line-height: 1.8;
     }
 
-    .entry-meta {
-      font-family: monospace;
+    .meta-block {
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
       font-size: 0.78rem;
+      line-height: 1.7;
+      background: rgba(150, 150, 150, 0.06);
+      border: 1px solid rgba(150, 150, 150, 0.18);
+      border-radius: 4px;
+      padding: 14px 16px;
+      margin-bottom: 24px;
+    }
+
+    .entry-meta {
       color: inherit;
-      opacity: 0.55;
-      line-height: 1.6;
-      margin-bottom: 18px;
+      opacity: 0.6;
+      margin-bottom: 12px;
     }
 
     .constraint-block {
-      margin-bottom: 14px;
+      margin-bottom: 12px;
+    }
+    .constraint-block:last-child {
+      margin-bottom: 0;
     }
 
     .constraint-name {
-      font-size: 0.78rem;
-      font-weight: bold;
-      opacity: 0.75;
-      margin-bottom: 4px;
+      opacity: 0.8;
+      margin-bottom: 3px;
+    }
+    .constraint-name::before {
+      content: "// ";
+      opacity: 0.6;
     }
 
     .constraint-desc {
-      font-size: 0.85rem;
-      opacity: 0.65;
-      line-height: 1.6;
+      opacity: 0.55;
+    }
+
+    .poem-divider {
+      width: 28px;
+      height: 1px;
+      background: rgba(150, 150, 150, 0.4);
+      margin: 0 0 24px 0;
     }
 
     .poem-text {
-      margin-top: 20px;
       white-space: pre-line;
       font-size: 1rem;
       line-height: 1.95;
@@ -183,6 +234,9 @@
     <div class="page-title">the loop</div>
     <div class="page-subtitle">
       A daily exercise in creative friction and a direct refusal to filter. Every 24 hours, a new poem written on the spot, driven by an unpredictable prompt engine &mdash; capturing the exact temperature of a fleeting headspace before it evaporates. No filtering, no quality control. This is an archive of process, not a portfolio of perfection.
+      <div class="manifesto-link-wrapper">
+        <a href="/the-loop/the-manifesto.html" class="manifesto-link glitch-link">the manifesto <span class="arrow">&rarr;</span></a>
+      </div>
     </div>
 
     <div id="entries"></div>
@@ -412,8 +466,11 @@
       const body = document.createElement('div');
       body.className = 'entry-body';
       body.innerHTML =
-        '<div class="entry-meta">Language: ' + entry.language + '</div>' +
-        constraintsHtml +
+        '<div class="meta-block">' +
+          '<div class="entry-meta">language: ' + entry.language.toLowerCase() + '</div>' +
+          constraintsHtml +
+        '</div>' +
+        '<div class="poem-divider"></div>' +
         '<div class="poem-text">' + entry.poem + '</div>';
 
       bodyWrapper.appendChild(body);
