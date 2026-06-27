@@ -5,11 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ZamKim</title>
   <style>
-    /* Reverting the menu back to the clean, terminal aesthetic */
+    /* Imports the Nanum Myeongjo font for both English and Korean */
+    @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&display=swap');
+
     body {
-      font-family: monospace; 
-      background-color: #f0eee9; /* Keeps the darker, warm paper off-white */
-      color: #2a2a28; /* Keeps the soft charcoal ink */
+      font-family: 'Nanum Myeongjo', serif;
+      background-color: #f0eee9; /* Darker, warm paper off-white */
+      color: #2a2a28; /* Soft charcoal ink */
       display: flex;
       justify-content: center;
       align-items: center;
@@ -18,11 +20,11 @@
       padding: 20px;
     }
     
-    /* Dark mode support */
+    /* Dark mode support (soft, cinematic darks) */
     @media (prefers-color-scheme: dark) {
       body {
-        background-color: #161514;
-        color: #dcdad5;
+        background-color: #161514; /* Deep off-black */
+        color: #dcdad5; /* Soft ash white */
       }
     }
 
