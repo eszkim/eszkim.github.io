@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ZamKim</title>
   <style>
-    /* Imports the Nanum Myeongjo font for both English and Korean */
+    /* Imports the Nanum Myeongjo font */
     @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&display=swap');
 
     body {
       font-family: 'Nanum Myeongjo', serif;
-      background-color: #f0eee9; /* Darker, warm paper off-white */
-      color: #2a2a28; /* Soft charcoal ink */
+      background-color: #f0eee9; 
+      color: #2a2a28; 
       display: flex;
       justify-content: center;
       align-items: center;
@@ -20,15 +20,13 @@
       padding: 20px;
     }
     
-    /* Dark mode support (soft, cinematic darks) */
     @media (prefers-color-scheme: dark) {
       body {
-        background-color: #161514; /* Deep off-black */
-        color: #dcdad5; /* Soft ash white */
+        background-color: #161514; 
+        color: #dcdad5; 
       }
     }
 
-    /* Links and Menu Styling */
     ul {
       list-style: none;
       padding: 0;
@@ -39,17 +37,32 @@
       margin: 24px 0;
     }
 
+    /* THE GLITCH ANIMATION INSTRUCTIONS */
+    @keyframes vertical-glitch {
+      0%   { transform: translate(0, 0) skew(0deg); }
+      20%  { transform: translate(-1px, -3px) skew(-10deg); filter: blur(1px); }
+      40%  { transform: translate(1px, 3px) skew(10deg); filter: blur(0px); }
+      60%  { transform: translate(-1px, 2px) skew(-5deg); }
+      80%  { transform: translate(1px, -2px) skew(5deg); }
+      100% { transform: translate(0, 0) skew(0deg); }
+    }
+
     a {
       color: inherit;
       text-decoration: none;
       font-size: 0.95rem;
       letter-spacing: 0.15em;
       opacity: 0.5;
-      transition: opacity 0.4s ease;
+      /* We keep the smooth fade-in for the opacity */
+      transition: opacity 0.4s ease; 
+      /* inline-block is required for CSS to let us physically move the text */
+      display: inline-block; 
     }
 
     a:hover {
       opacity: 1;
+      /* This fires the glitch animation for exactly 0.25 seconds when the mouse touches it */
+      animation: vertical-glitch 0.25s linear both;
     }
   </style>
 </head>
