@@ -20,26 +20,32 @@
     }
     
     @media (prefers-color-scheme: dark) {
-      body {
-        background-color: #161514; 
-        color: #dcdad5; 
-      }
+      body { background-color: #161514; color: #dcdad5; }
     }
 
-    ul { list-style: none; padding: 0; text-align: center; margin: 0; }
-    .menu-item { margin: 32px 0; }
+    /* Uniform spacing using gap */
+    ul { 
+      list-style: none; 
+      padding: 0; 
+      text-align: center; 
+      display: flex; 
+      flex-direction: column; 
+      gap: 16px; /* Adjusted to your preference */
+    }
 
+    /* Aggressive RGB Glitch */
     @keyframes rgb-split-glitch {
       0%   { text-shadow: none; transform: translate(0, 0); }
-      15%  { text-shadow: 3px 0 0px rgba(255,0,0,0.8), -3px 0 0px rgba(0,255,255,0.8); transform: translate(-2px, 0); }
+      20%  { text-shadow: 5px 0 0px rgba(255,0,0,0.7), -5px 0 0px rgba(0,255,255,0.7); transform: translate(-4px, 0); }
+      40%  { text-shadow: -5px 0 0px rgba(255,0,0,0.7), 5px 0 0px rgba(0,255,255,0.7); transform: translate(4px, 0); }
+      60%  { text-shadow: 4px 0 0px rgba(0,255,0,0.7), -4px 0 0px rgba(0,0,255,0.7); transform: translate(-2px, 0); }
       100% { text-shadow: none; transform: translate(0, 0); }
     }
 
-    /* Main Menu Links */
     .main-link {
       color: inherit;
       text-decoration: none;
-      font-size: 1.3rem; /* Larger */
+      font-size: 1.3rem;
       letter-spacing: 0.15em;
       opacity: 0.6;
       transition: opacity 0.3s ease; 
@@ -49,20 +55,17 @@
 
     .main-link:hover {
       opacity: 1;
-      animation: rgb-split-glitch 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+      animation: rgb-split-glitch 0.25s linear both;
     }
 
-    /* --- CLICKABLE DROPDOWN LOGIC --- */
     .submenu-wrapper {
       display: grid;
       grid-template-rows: 0fr;
-      transition: grid-template-rows 0.4s ease;
+      transition: grid-template-rows 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       overflow: hidden;
     }
 
-    .submenu-wrapper.open {
-      grid-template-rows: 1fr;
-    }
+    .submenu-wrapper.open { grid-template-rows: 1fr; }
 
     .submenu {
       min-height: 0; 
@@ -70,6 +73,7 @@
       flex-direction: column;
       gap: 12px; 
       padding-top: 15px;
+      margin: 0;
     }
 
     .submenu a {
@@ -85,10 +89,10 @@
 </head>
 <body>
 
-  <ul>
-    <li class="menu-item"><a href="/about.html" class="main-link">about me</a></li>
+  <ul id="main-menu">
+    <li><a href="/about.html" class="main-link">about me</a></li>
     
-    <li class="menu-item dropdown">
+    <li class="dropdown">
       <a class="main-link" onclick="toggleMenu(this)">texts</a>
       <div class="submenu-wrapper">
         <ul class="submenu">
@@ -98,7 +102,7 @@
       </div>
     </li>
 
-    <li class="menu-item dropdown">
+    <li class="dropdown">
       <a class="main-link" onclick="toggleMenu(this)">audio</a>
       <div class="submenu-wrapper">
         <ul class="submenu">
@@ -108,7 +112,7 @@
       </div>
     </li>
 
-    <li class="menu-item dropdown">
+    <li class="dropdown">
       <a class="main-link" onclick="toggleMenu(this)">visuals</a>
       <div class="submenu-wrapper">
         <ul class="submenu">
@@ -118,15 +122,22 @@
       </div>
     </li>
     
-    <li class="menu-item"><a href="https://instagram.com/zamkim" target="_blank" rel="noopener noreferrer" class="main-link">@zamkim</a></li>
+    <li><a href="https://instagram.com/zamkim" target="_blank" rel="noopener noreferrer" class="main-link">@zamkim</a></li>
   </ul>
 
   <script>
     function toggleMenu(element) {
+      const parent = element.parentElement;
       const wrapper = element.nextElementSibling;
+      
+      // Close all other submenus
+      document.querySelectorAll('.submenu-wrapper').forEach(menu => {
+        if (menu !== wrapper) menu.classList.remove('open');
+      });
+      
+      // Toggle the clicked one
       wrapper.classList.toggle('open');
     }
   </script>
-
 </body>
 </html>
