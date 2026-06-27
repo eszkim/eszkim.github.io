@@ -37,14 +37,15 @@
       margin: 24px 0;
     }
 
-    /* THE GLITCH ANIMATION INSTRUCTIONS */
-    @keyframes vertical-glitch {
-      0%   { transform: translate(0, 0) skew(0deg); }
-      20%  { transform: translate(-1px, -3px) skew(-10deg); filter: blur(1px); }
-      40%  { transform: translate(1px, 3px) skew(10deg); filter: blur(0px); }
-      60%  { transform: translate(-1px, 2px) skew(-5deg); }
-      80%  { transform: translate(1px, -2px) skew(5deg); }
-      100% { transform: translate(0, 0) skew(0deg); }
+    /* THE RGB SPLIT / CHROMATIC ABERRATION GLITCH */
+    @keyframes rgb-split-glitch {
+      0%   { text-shadow: none; transform: translate(0, 0); }
+      15%  { text-shadow: 3px 0 0px rgba(255,0,0,0.8), -3px 0 0px rgba(0,255,255,0.8); transform: translate(-2px, 0); }
+      30%  { text-shadow: -4px 0 0px rgba(255,0,0,0.8), 4px 0 0px rgba(0,255,255,0.8); transform: translate(2px, 0); }
+      45%  { text-shadow: 2px 0 0px rgba(255,0,0,0.8), -2px 0 0px rgba(0,255,255,0.8); transform: translate(-1px, 0); }
+      60%  { text-shadow: -3px 0 0px rgba(0,255,0,0.8), 3px 0 0px rgba(0,0,255,0.8); transform: translate(1px, 0); }
+      75%  { text-shadow: 1px 0 0px rgba(255,0,255,0.8), -1px 0 0px rgba(255,255,0,0.8); transform: translate(-1px, 0); }
+      100% { text-shadow: none; transform: translate(0, 0); }
     }
 
     a {
@@ -55,14 +56,13 @@
       opacity: 0.5;
       /* We keep the smooth fade-in for the opacity */
       transition: opacity 0.4s ease; 
-      /* inline-block is required for CSS to let us physically move the text */
       display: inline-block; 
     }
 
     a:hover {
       opacity: 1;
-      /* This fires the glitch animation for exactly 0.25 seconds when the mouse touches it */
-      animation: vertical-glitch 0.25s linear both;
+      /* This fires the RGB split animation for exactly 0.3 seconds */
+      animation: rgb-split-glitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
     }
   </style>
 </head>
