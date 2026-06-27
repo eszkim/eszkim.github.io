@@ -23,17 +23,19 @@
       body { background-color: #161514; color: #dcdad5; }
     }
 
-    /* Uniform spacing using gap */
     ul { 
       list-style: none; 
       padding: 0; 
       text-align: center; 
+      margin: 0; 
       display: flex; 
       flex-direction: column; 
-      gap: 16px; /* Adjusted to your preference */
+      gap: 32px; /* Increased gap to make the spacing visually clear */
     }
 
-    /* Aggressive RGB Glitch */
+    /* Reset all list items so they don't have their own margins */
+    li { margin: 0; padding: 0; }
+
     @keyframes rgb-split-glitch {
       0%   { text-shadow: none; transform: translate(0, 0); }
       20%  { text-shadow: 5px 0 0px rgba(255,0,0,0.7), -5px 0 0px rgba(0,255,255,0.7); transform: translate(-4px, 0); }
@@ -58,6 +60,7 @@
       animation: rgb-split-glitch 0.25s linear both;
     }
 
+    /* --- DROPDOWN LOGIC --- */
     .submenu-wrapper {
       display: grid;
       grid-template-rows: 0fr;
@@ -74,6 +77,8 @@
       gap: 12px; 
       padding-top: 15px;
       margin: 0;
+      /* Ensure submenu doesn't add extra space to the list gap */
+      gap: 12px; 
     }
 
     .submenu a {
@@ -127,16 +132,18 @@
 
   <script>
     function toggleMenu(element) {
-      const parent = element.parentElement;
       const wrapper = element.nextElementSibling;
+      const isOpen = wrapper.classList.contains('open');
       
       // Close all other submenus
       document.querySelectorAll('.submenu-wrapper').forEach(menu => {
-        if (menu !== wrapper) menu.classList.remove('open');
+        menu.classList.remove('open');
       });
       
-      // Toggle the clicked one
-      wrapper.classList.toggle('open');
+      // Toggle the clicked one only if it wasn't already open
+      if (!isOpen) {
+        wrapper.classList.add('open');
+      }
     }
   </script>
 </body>
