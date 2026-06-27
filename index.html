@@ -16,13 +16,13 @@
       align-items: center;
       height: 100vh;
       margin: 0;
-      padding: 20px;
     }
     
     @media (prefers-color-scheme: dark) {
       body { background-color: #161514; color: #dcdad5; }
     }
 
+    /* Standardized flex container for the entire list */
     ul { 
       list-style: none; 
       padding: 0; 
@@ -30,17 +30,20 @@
       margin: 0; 
       display: flex; 
       flex-direction: column; 
-      gap: 32px; /* Increased gap to make the spacing visually clear */
+      gap: 32px; 
     }
 
-    /* Reset all list items so they don't have their own margins */
-    li { margin: 0; padding: 0; }
+    /* Force every list item to a fixed block */
+    li { 
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+    }
 
+    /* RGB Glitch (Updated selector to match structure) */
     @keyframes rgb-split-glitch {
       0%   { text-shadow: none; transform: translate(0, 0); }
       20%  { text-shadow: 5px 0 0px rgba(255,0,0,0.7), -5px 0 0px rgba(0,255,255,0.7); transform: translate(-4px, 0); }
-      40%  { text-shadow: -5px 0 0px rgba(255,0,0,0.7), 5px 0 0px rgba(0,255,255,0.7); transform: translate(4px, 0); }
-      60%  { text-shadow: 4px 0 0px rgba(0,255,0,0.7), -4px 0 0px rgba(0,0,255,0.7); transform: translate(-2px, 0); }
       100% { text-shadow: none; transform: translate(0, 0); }
     }
 
@@ -52,7 +55,6 @@
       opacity: 0.6;
       transition: opacity 0.3s ease; 
       cursor: pointer;
-      display: inline-block;
     }
 
     .main-link:hover {
@@ -60,7 +62,6 @@
       animation: rgb-split-glitch 0.25s linear both;
     }
 
-    /* --- DROPDOWN LOGIC --- */
     .submenu-wrapper {
       display: grid;
       grid-template-rows: 0fr;
@@ -77,8 +78,7 @@
       gap: 12px; 
       padding-top: 15px;
       margin: 0;
-      /* Ensure submenu doesn't add extra space to the list gap */
-      gap: 12px; 
+      padding-left: 0;
     }
 
     .submenu a {
@@ -94,10 +94,10 @@
 </head>
 <body>
 
-  <ul id="main-menu">
+  <ul>
     <li><a href="/about.html" class="main-link">about me</a></li>
     
-    <li class="dropdown">
+    <li>
       <a class="main-link" onclick="toggleMenu(this)">texts</a>
       <div class="submenu-wrapper">
         <ul class="submenu">
@@ -107,7 +107,7 @@
       </div>
     </li>
 
-    <li class="dropdown">
+    <li>
       <a class="main-link" onclick="toggleMenu(this)">audio</a>
       <div class="submenu-wrapper">
         <ul class="submenu">
@@ -117,7 +117,7 @@
       </div>
     </li>
 
-    <li class="dropdown">
+    <li>
       <a class="main-link" onclick="toggleMenu(this)">visuals</a>
       <div class="submenu-wrapper">
         <ul class="submenu">
@@ -134,16 +134,8 @@
     function toggleMenu(element) {
       const wrapper = element.nextElementSibling;
       const isOpen = wrapper.classList.contains('open');
-      
-      // Close all other submenus
-      document.querySelectorAll('.submenu-wrapper').forEach(menu => {
-        menu.classList.remove('open');
-      });
-      
-      // Toggle the clicked one only if it wasn't already open
-      if (!isOpen) {
-        wrapper.classList.add('open');
-      }
+      document.querySelectorAll('.submenu-wrapper').forEach(menu => menu.classList.remove('open'));
+      if (!isOpen) wrapper.classList.add('open');
     }
   </script>
 </body>
