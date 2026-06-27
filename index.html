@@ -55,19 +55,16 @@
       opacity: 1;
       animation: rgb-split-glitch 0.25s linear both;
     }
-    /* FIXED: replaced grid-template-rows: 0fr trick (can render as a few px
-       instead of true 0 in some browsers) with max-height, which has an
-       unambiguous zero state and clips reliably every time. */
+    /* FIXED: height is now set in pixels by JavaScript to match each
+       submenu's real content height, so opening and closing both animate
+       across the exact same distance — smooth and symmetric both ways. */
     .submenu-wrapper {
-      max-height: 0;
+      height: 0;
       margin: 0;
       padding: 0;
       border: 0;
       overflow: hidden;
-      transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .submenu-wrapper.open {
-      max-height: 300px; /* comfortably taller than any real submenu content */
+      transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .submenu {
       min-height: 0; 
@@ -126,8 +123,21 @@
     function toggleMenu(element) {
       const wrapper = element.nextElementSibling;
       const isOpen = wrapper.classList.contains('open');
-      document.querySelectorAll('.submenu-wrapper').forEach(menu => menu.classList.remove('open'));
-      if (!isOpen) wrapper.classList.add('open');
+
+      // Close every dropdown first (animates them back to 0)
+      document.querySelectorAll('.submenu-wrapper').forEach(menu => {
+        menu.style.height = '0px';
+        menu.classList.remove('open');
+      });
+
+      // If the clicked one wasn't already open, open it by measuring
+      // its real content height and animating to that exact value
+      if (!isOpen) {
+        const submenu = wrapper.querySelector('.submenu');
+        const fullHeight = submenu.scrollHeight;
+        wrapper.style.height = fullHeight + 'px';
+        wrapper.classList.add('open');
+      }
     }
   </script>
 </body>
