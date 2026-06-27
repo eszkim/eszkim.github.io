@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ZamKim</title>
   <style>
-    /* Imports the Nanum Myeongjo font */
     @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&display=swap');
 
     body {
@@ -31,13 +30,14 @@
       list-style: none;
       padding: 0;
       text-align: center;
+      margin: 0;
     }
 
-    li {
+    .menu-item {
       margin: 24px 0;
     }
 
-    /* THE RGB SPLIT / CHROMATIC ABERRATION GLITCH */
+    /* The RGB Glitch */
     @keyframes rgb-split-glitch {
       0%   { text-shadow: none; transform: translate(0, 0); }
       15%  { text-shadow: 3px 0 0px rgba(255,0,0,0.8), -3px 0 0px rgba(0,255,255,0.8); transform: translate(-2px, 0); }
@@ -54,24 +54,91 @@
       font-size: 0.95rem;
       letter-spacing: 0.15em;
       opacity: 0.5;
-      /* We keep the smooth fade-in for the opacity */
       transition: opacity 0.4s ease; 
       display: inline-block; 
+      cursor: pointer;
     }
 
     a:hover {
       opacity: 1;
-      /* This fires the RGB split animation for exactly 0.3 seconds */
       animation: rgb-split-glitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    }
+
+    /* --- DROPDOWN LOGIC --- */
+    .submenu-wrapper {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+      overflow: hidden;
+    }
+
+    .dropdown:hover .submenu-wrapper {
+      grid-template-rows: 1fr;
+    }
+
+    .submenu {
+      min-height: 0; 
+      display: flex;
+      flex-direction: column;
+      gap: 16px; 
+      padding-top: 0;
+      transition: padding-top 0.5s ease;
+    }
+
+    .dropdown:hover .submenu {
+      padding-top: 20px; 
+      padding-bottom: 8px;
+    }
+
+    .submenu a {
+      font-size: 0.8rem;
+      opacity: 0.35;
+    }
+    
+    .submenu a:hover {
+      opacity: 1;
     }
   </style>
 </head>
 <body>
 
   <ul>
-    <li><a href="/about.html">about me</a></li>
-    <li><a href="/archive.html">archive</a></li>
-    <li><a href="https://instagram.com/zamkim" target="_blank" rel="noopener noreferrer">@zamkim</a></li>
+    <li class="menu-item"><a href="/about.html">about me</a></li>
+    
+    <!-- TEXTS -->
+    <li class="menu-item dropdown">
+      <a>texts</a>
+      <div class="submenu-wrapper">
+        <ul class="submenu">
+          <li><a href="/curated.html">curated</a></li>
+          <li><a href="/the-loop.html">the loop</a></li>
+        </ul>
+      </div>
+    </li>
+
+    <!-- AUDIO -->
+    <li class="menu-item dropdown">
+      <a>audio</a>
+      <div class="submenu-wrapper">
+        <ul class="submenu">
+          <li><a href="/releases.html">releases</a></li>
+          <li><a href="/sketches.html">sketches</a></li>
+        </ul>
+      </div>
+    </li>
+
+    <!-- VISUALS -->
+    <li class="menu-item dropdown">
+      <a>visuals</a>
+      <div class="submenu-wrapper">
+        <ul class="submenu">
+          <li><a href="/studies.html">studies</a></li>
+          <li><a href="/glimpses.html">glimpses</a></li>
+        </ul>
+      </div>
+    </li>
+    
+    <li class="menu-item"><a href="https://instagram.com/zamkim" target="_blank" rel="noopener noreferrer">@zamkim</a></li>
   </ul>
 
 </body>
