@@ -5,10 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About | ZamKim</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&family=Spectral:wght@400;600&display=swap');
 
+    /* Spectral is now the universal "everything that isn't a nav link" font.
+       Nanum Myeongjo is reserved for nav/menu links via .nav-font below,
+       so the two fonts stay cleanly separated by role, not by guesswork. */
     body {
-      font-family: 'Nanum Myeongjo', serif;
+      font-family: 'Spectral', serif;
       background-color: #f0eee9;
       color: #2a2a28;
       display: flex;
@@ -24,6 +27,23 @@
       }
     }
 
+    /* Reusable class for anything that should look like a homepage nav link */
+    .nav-font {
+      font-family: 'Nanum Myeongjo', serif;
+    }
+
+    /* RGB Glitch — same animation as the homepage, now shared by any
+       element with the .glitch-link class */
+    @keyframes rgb-split-glitch {
+      0%   { text-shadow: none; transform: translate(0, 0); }
+      20%  { text-shadow: 5px 0 0px rgba(255,0,0,0.7), -5px 0 0px rgba(0,255,255,0.7); transform: translate(-4px, 0); }
+      100% { text-shadow: none; transform: translate(0, 0); }
+    }
+    .glitch-link:hover {
+      opacity: 1;
+      animation: rgb-split-glitch 0.25s linear both;
+    }
+
     /* Unifying the back button to match the rest of the page */
     .back-btn {
       color: inherit;
@@ -34,10 +54,7 @@
       display: inline-block;
       margin-bottom: 24px;
       letter-spacing: 0.1em;
-    }
-
-    .back-btn:hover {
-      opacity: 1;
+      cursor: pointer;
     }
 
     .container {
@@ -51,7 +68,7 @@
   <div class="container">
     
     <!-- NAVIGATION -->
-    <a href="/" class="back-btn">[ ← menu ]</a>
+    <a href="/" class="back-btn nav-font glitch-link">[ ← menu ]</a>
 
     <!-- YOUR ABOUT ME BOX -->
     <div style="font-size: 1.05rem; line-height: 1.8; color: inherit; border: 1px solid rgba(150, 150, 150, 0.2); border-radius: 4px; padding: 32px; box-sizing: border-box;">
@@ -64,6 +81,10 @@
       </div>
 
       <!-- BODY COPY -->
+      <div style="margin-bottom: 24px;">
+        Hi. I'm Sam.
+      </div>
+
       <div style="margin-bottom: 24px;">
         Also known by my friends as Zam, my stage name ZamKim, or my legal name and to Koreans as Eun Soo Kim (김은수).
       </div>
@@ -86,7 +107,7 @@
           Read whatever you want. Take what you need.
         </div>
         <div>
-          <a href="https://instagram.com/zamkim" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">[@zamkim]</a>
+          <a href="https://instagram.com/zamkim" target="_blank" rel="noopener noreferrer" class="nav-font glitch-link" style="color: inherit; text-decoration: none; opacity: 0.6;">[@zamkim]</a>
         </div>
       </div>
 
