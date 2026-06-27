@@ -4,52 +4,59 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ZamKim</title>
-  <style>
-    /* This centers the menu dead in the middle of the screen */
+<style>
+    /* Imports the Nanum Myeongjo font for both English and Korean */
+    @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&display=swap');
+
     body {
-      font-family: monospace;
-      background-color: #fcfcfc;
-      color: #333;
+      font-family: 'Nanum Myeongjo', serif;
+      background-color: #f0eee9; /* Darker, warm paper off-white */
+      color: #2a2a28; /* Soft charcoal ink instead of harsh black */
       display: flex;
       justify-content: center;
-      align-items: center;
-      height: 100vh;
+      align-items: center; /* Remove this line ONLY for the about.html file so it scrolls normally */
+      height: 100vh; /* Remove this line ONLY for the about.html file */
       margin: 0;
+      padding: 20px; /* Add this padding for mobile breathing room */
     }
     
-    /* Dark mode support */
+    /* Dark mode support (soft, cinematic darks) */
     @media (prefers-color-scheme: dark) {
       body {
-        background-color: #121212;
-        color: #e0e0e0;
+        background-color: #161514; /* Deep off-black */
+        color: #dcdad5; /* Soft ash white */
       }
     }
 
-    /* Removes bullet points and centers the text */
+    /* Links and Menu Styling */
     ul {
       list-style: none;
       padding: 0;
       text-align: center;
     }
 
-    /* Spacing between the doors (links) */
     li {
       margin: 24px 0;
     }
 
-    /* The styling for the links: ghosted until you hover over them */
     a {
       color: inherit;
       text-decoration: none;
       font-size: 0.95rem;
       letter-spacing: 0.15em;
-      opacity: 0.4;
-      transition: opacity 0.3s ease;
+      opacity: 0.5;
+      transition: opacity 0.4s ease;
     }
 
-    /* When the mouse hovers, the text lights up */
     a:hover {
       opacity: 1;
+    }
+    
+    /* Specific styling for the about page container */
+    .container {
+      width: 100%;
+      max-width: 720px;
+      margin-top: 8vh;
     }
   </style>
 </head>
