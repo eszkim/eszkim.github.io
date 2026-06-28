@@ -89,20 +89,74 @@
       position: fixed;
       inset: 0;
       background: rgba(0, 0, 0, 0.88);
-      display: none;
+      display: flex;
       align-items: center;
       justify-content: center;
       padding: 32px;
       z-index: 100;
       cursor: zoom-out;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease;
     }
-    .lightbox.open { display: flex; }
+    .lightbox.open {
+      opacity: 1;
+      visibility: visible;
+    }
 
     .lightbox img {
       max-width: 100%;
-      max-height: 100%;
+      max-height: 80vh;
       border-radius: 2px;
       cursor: default;
+    }
+
+    .lightbox-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 100%;
+      max-height: 100%;
+      cursor: default;
+    }
+
+    .lightbox-caption {
+      font-family: 'Spectral', serif;
+      font-size: 0.9rem;
+      color: #ece9e3;
+      opacity: 0.75;
+      margin-top: 16px;
+      text-align: center;
+      max-width: 600px;
+    }
+
+    .lightbox-nav {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      width: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #ece9e3;
+      font-family: 'Nanum Myeongjo', serif;
+      font-size: 1.6rem;
+      opacity: 0.4;
+      transition: opacity 0.3s ease;
+      z-index: 101;
+    }
+    .lightbox-prev { left: 0; }
+    .lightbox-next { right: 0; }
+
+    /* On devices with real hover (mouse/trackpad), arrows stay hidden
+       until the lightbox is being moused over, then fade in. On touch
+       devices (no hover capability), keep them visible at low opacity
+       always, since there's no "approach" gesture to reveal them with. */
+    @media (hover: hover) {
+      .lightbox-nav { opacity: 0; }
+      .lightbox:hover .lightbox-nav { opacity: 0.4; }
+      .lightbox-nav:hover { opacity: 1; }
     }
 
     .lightbox-close {
@@ -116,6 +170,7 @@
       opacity: 0.6;
       cursor: pointer;
       transition: opacity 0.3s ease;
+      z-index: 101;
     }
     .lightbox-close:hover { opacity: 1; }
   </style>
@@ -137,28 +192,39 @@
 
   <div class="lightbox" id="lightbox">
     <div class="lightbox-close">[ close ]</div>
-    <img id="lightbox-img" src="" alt="">
+    <div class="lightbox-nav lightbox-prev" id="lightbox-prev">&larr;</div>
+    <div class="lightbox-nav lightbox-next" id="lightbox-next">&rarr;</div>
+    <div class="lightbox-content" id="lightbox-content">
+      <img id="lightbox-img" src="" alt="">
+      <div class="lightbox-caption" id="lightbox-caption"></div>
+    </div>
   </div>
 
   <script>
     /* PHOTOS
        To add a new photo: drop the file into /images/ in your repo,
-       then add one line here with its filename and a short alt description.
+       then add one line here with its filename, a short alt description,
+       and a one-line caption shown in the lightbox.
        Newest can go at the top or bottom — order here is the order shown. */
     const photos = [
-      { src: "/images/sample-1.jpg", alt: "Sample placeholder photo 1" },
-      { src: "/images/sample-2.jpg", alt: "Sample placeholder photo 2" },
-      { src: "/images/sample-3.jpg", alt: "Sample placeholder photo 3" },
-      { src: "/images/sample-4.jpg", alt: "Sample placeholder photo 4" },
-      { src: "/images/sample-5.jpg", alt: "Sample placeholder photo 5" },
-      { src: "/images/sample-6.jpg", alt: "Sample placeholder photo 6" }
+      { src: "/images/sample-1.jpg", alt: "Sample placeholder photo 1", caption: "Sample caption one." },
+      { src: "/images/sample-2.jpg", alt: "Sample placeholder photo 2", caption: "Sample caption two." },
+      { src: "/images/sample-3.jpg", alt: "Sample placeholder photo 3", caption: "Sample caption three." },
+      { src: "/images/sample-4.jpg", alt: "Sample placeholder photo 4", caption: "Sample caption four." },
+      { src: "/images/sample-5.jpg", alt: "Sample placeholder photo 5", caption: "Sample caption five." },
+      { src: "/images/sample-6.jpg", alt: "Sample placeholder photo 6", caption: "Sample caption six." }
     ];
 
     const gallery = document.getElementById('gallery');
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxCaption = document.getElementById('lightbox-caption');
+    const prevBtn = document.getElementById('lightbox-prev');
+    const nextBtn = document.getElementById('lightbox-next');
 
-    photos.forEach(photo => {
+    let currentIndex = 0;
+
+    photos.forEach((photo, index) => {
       const item = document.createElement('div');
       item.className = 'gallery-item';
 
@@ -168,28 +234,81 @@
       img.loading = 'lazy';
 
       item.appendChild(img);
-      item.onclick = () => openLightbox(photo.src, photo.alt);
+      item.onclick = () => openLightbox(index);
 
       gallery.appendChild(item);
     });
 
-    function openLightbox(src, alt) {
-      lightboxImg.src = src;
-      lightboxImg.alt = alt;
+    function showPhoto(index) {
+      currentIndex = (index + photos.length) % photos.length;
+      const photo = photos[currentIndex];
+      lightboxImg.src = photo.src;
+      lightboxImg.alt = photo.alt;
+      lightboxCaption.textContent = photo.caption || '';
+    }
+
+    function openLightbox(index) {
+      showPhoto(index);
       lightbox.classList.add('open');
     }
 
-    lightbox.addEventListener('click', () => {
+    function closeLightbox() {
       lightbox.classList.remove('open');
       lightboxImg.src = '';
+    }
+
+    // Only clicking the backdrop closes the lightbox. The photo itself,
+    // caption, and nav arrows are excluded so clicking them does nothing
+    // (image/caption) or navigates (arrows) instead of closing.
+    lightbox.addEventListener('click', closeLightbox);
+    lightboxImg.addEventListener('click', (e) => e.stopPropagation());
+    lightboxCaption.addEventListener('click', (e) => e.stopPropagation());
+    prevBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      showPhoto(currentIndex - 1);
+    });
+    nextBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      showPhoto(currentIndex + 1);
     });
 
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        lightbox.classList.remove('open');
-        lightboxImg.src = '';
-      }
+      if (!lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') showPhoto(currentIndex - 1);
+      if (e.key === 'ArrowRight') showPhoto(currentIndex + 1);
     });
+
+    // SWIPE NAVIGATION (mobile)
+    // Tracks horizontal finger movement. A swipe only counts if it moves
+    // far enough sideways (40px) and isn't mostly vertical (which means
+    // the person was likely just scrolling, not swiping a photo).
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    lightbox.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].clientX;
+      touchStartY = e.changedTouches[0].clientY;
+    }, { passive: true });
+
+    lightbox.addEventListener('touchend', (e) => {
+      const touchEndX = e.changedTouches[0].clientX;
+      const touchEndY = e.changedTouches[0].clientY;
+      const deltaX = touchEndX - touchStartX;
+      const deltaY = touchEndY - touchStartY;
+
+      const minSwipeDistance = 40;
+      const isMostlyHorizontal = Math.abs(deltaX) > Math.abs(deltaY);
+
+      if (isMostlyHorizontal && Math.abs(deltaX) > minSwipeDistance) {
+        e.preventDefault();
+        if (deltaX < 0) {
+          showPhoto(currentIndex + 1);
+        } else {
+          showPhoto(currentIndex - 1);
+        }
+      }
+    }, { passive: false });
   </script>
 
 </body>
