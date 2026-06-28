@@ -57,7 +57,7 @@
 
     .page-title {
       font-family: 'Nanum Myeongjo', serif;
-      font-size: 1.75rem;
+      font-size: 2rem;
       font-weight: bold;
       letter-spacing: -0.02em;
       margin-bottom: 32px;
@@ -72,31 +72,14 @@
       margin-bottom: 24px;
     }
 
-    .section-box.status {
-      border-left: 4px solid rgba(150, 150, 150, 0.6);
-      background-color: rgba(150, 150, 150, 0.04);
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .section-box.status {
-        background-color: rgba(255, 255, 255, 0.03);
-      }
-    }
-
     .section-label {
       font-family: 'JetBrains Mono', 'Courier New', monospace;
       font-weight: bold;
-      font-size: 0.78rem;
-      letter-spacing: 0.08em;
+      font-size: 1.05rem;
+      letter-spacing: 0.06em;
       border-bottom: 1px solid rgba(150, 150, 150, 0.2);
-      padding-bottom: 12px;
-      margin-bottom: 16px;
-    }
-
-    .status-content {
-      font-family: 'JetBrains Mono', 'Courier New', monospace;
-      font-size: 0.85rem;
-      line-height: 1.8;
+      padding-bottom: 14px;
+      margin-bottom: 20px;
     }
 
     .lang-block {
@@ -114,30 +97,49 @@
     .system-rotation {
       font-size: 0.95rem;
       line-height: 1.8;
-      margin-bottom: 16px;
+      margin-bottom: 24px;
     }
 
     .armory-intro {
       font-size: 0.95rem;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
+    }
+
+    .armory-box {
+      border: 1px solid rgba(150, 150, 150, 0.15);
+      border-radius: 4px;
+      padding: 4px 18px;
+      background-color: rgba(150, 150, 150, 0.025);
     }
 
     .armory-group {
-      margin-bottom: 18px;
+      margin-bottom: 0;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(150, 150, 150, 0.1);
     }
-    .armory-group:last-child { margin-bottom: 0; }
+    .armory-group:last-child { border-bottom: none; }
 
     .armory-label {
       color: #888;
-      font-size: 0.85rem;
-      margin-bottom: 8px;
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+      margin-bottom: 14px;
     }
 
     .armory-list {
       font-size: 0.95rem;
-      line-height: 1.85;
+      line-height: 2.2;
     }
-    .armory-list div { margin-bottom: 2px; padding-left: 1.2em; text-indent: -1.2em; }
+    .armory-list div {
+      padding-left: 1.3em;
+      position: relative;
+    }
+    .armory-list div::before {
+      content: "\2014";
+      position: absolute;
+      left: 0;
+      opacity: 0.4;
+    }
 
     .sign-off {
       text-align: center;
@@ -157,71 +159,65 @@
 
     <div class="page-title">the manifesto</div>
 
-    <div class="section-box status">
-      <div class="section-label">01 // status</div>
-      <div class="status-content">
-        <strong>Streak:</strong> D+21<br>
-        <strong>Updated:</strong> 260627
-      </div>
-    </div>
-
     <div class="section-box">
-      <div class="section-label">02 // the project</div>
+      <div class="section-label">01 // the project</div>
       <div class="lang-block">This log is a daily exercise in creative friction and a direct refusal to filter. Every 24 hours, I force myself to write a new poem on the spot, driven entirely by an unpredictable prompt engine. The goal is not to craft something polished or perfect, but to capture the exact temperature of a fleeting headspace before it evaporates. By stripping away the luxury of overthinking and relying on unforgiving structural boundaries, this archive forces a raw, immediate translation of thought into text.</div>
       <div class="lang-block translation">이 기록은 창조적 마찰을 위한 매일의 훈련이자 검열에 대한 직접적인 거부입니다. 매일 24시간마다 저는 예측할 수 없는 프롬프트 엔진에 전적으로 의존하여 즉석에서 새로운 시를 쓰도록 스스로를 몰아넣습니다. 목표는 세련되거나 완벽한 것을 만드는 것이 아니라, 덧없는 생각의 정확한 온도가 증발하기 전에 포착하는 것입니다. 지나친 생각이라는 사치를 버리고 무자비한 구조적 경계에 의존함으로써, 이 아카이브는 날 것 그대로의 즉각적인 생각을 텍스트로 번역하도록 강제합니다.</div>
       <div class="lang-block translation">Este registro es un ejercicio diario de fricción creativa y un rechazo directo a los filtros. Cada 24 horas, me obligo a escribir un poema nuevo en el acto, impulsado completamente por un motor de estímulos impredecible. El objetivo no es crear algo pulido o perfecto, sino capturar la temperatura exacta de un estado mental fugaz antes de que se evapore. Al eliminar el lujo de pensar demasiado y depender de límites estructurales implacables, este archivo fuerza una traducción cruda e inmediata del pensamiento al texto.</div>
     </div>
 
     <div class="section-box">
-      <div class="section-label">03 // the origin</div>
+      <div class="section-label">02 // the origin</div>
       <div class="lang-block">This log was born out of a need to break creative paralysis. It forces me out of my native linguistic comfort zones and demands action over perfection, proving that inspiration is a byproduct of friction, not a prerequisite for it.</div>
       <div class="lang-block translation">이 기록은 창작의 마비를 깨고 싶은 필요성에서 탄생했습니다. 이는 저를 모국어의 편안한 영역에서 벗어나게 하고 완벽함보다 행동을 요구하며, 영감은 마찰의 부산물이지 그 전제 조건이 아님을 증명합니다.</div>
       <div class="lang-block translation">Este registro nació de la necesidad de romper la parálisis creativa. Me obliga a salir de mis zonas de confort lingüístico y exige acción sobre perfección, demostrando que la inspiración es un subproducto de la fricción, no un requisito previo para ella.</div>
     </div>
 
     <div class="section-box">
-      <div class="section-label">04 // the system</div>
+      <div class="section-label">03 // the system</div>
 
       <div class="system-rotation"><strong>The Rotation:</strong> English, Korean, Spanish</div>
 
       <div class="armory-intro"><strong>The Armory (Deployed Constraints to Date):</strong></div>
 
-      <div class="armory-group">
-        <div class="armory-label">[ thematic &amp; psychological ]</div>
-        <div class="armory-list">
-          <div>+ Time Capsule (Suspended moments &amp; reverse chronology)</div>
-          <div>+ Inanimate POV (Perspective of objects / machines)</div>
-          <div>+ The Locked Room (Micro-spaces &amp; claustrophobia)</div>
-          <div>+ The Palm-Sized Universe (Total ban on macro-imagery)</div>
-          <div>+ The Kinetic Focus (Microscopic physical events &amp; mergers)</div>
-          <div>+ Blind Themes (Alienation, deafening silence, emotional evaporation)</div>
+      <div class="armory-box">
+        <div class="armory-group">
+          <div class="armory-label">[ thematic &amp; psychological ]</div>
+          <div class="armory-list">
+            <div>+ Time Capsule (Suspended moments &amp; reverse chronology)</div>
+            <div>+ Inanimate POV (Perspective of objects / machines)</div>
+            <div>+ The Locked Room (Micro-spaces &amp; claustrophobia)</div>
+            <div>+ The Palm-Sized Universe (Total ban on macro-imagery)</div>
+            <div>+ The Kinetic Focus (Microscopic physical events &amp; mergers)</div>
+            <div>+ Blind Themes (Alienation, deafening silence, emotional evaporation)</div>
+          </div>
         </div>
-      </div>
 
-      <div class="armory-group">
-        <div class="armory-label">[ sensory &amp; lexical handicaps ]</div>
-        <div class="armory-list">
-          <div>+ Sensory Blackout (Strict bans on visual or auditory descriptions)</div>
-          <div>+ Taboo Lists (Banned environments, specific words, or identity pronouns)</div>
-          <div>+ The Adjective Ban (Zero descriptive adjectives allowed)</div>
-          <div>+ Required Anchors (4-Word chains &amp; locked single-syllable pivots)</div>
+        <div class="armory-group">
+          <div class="armory-label">[ sensory &amp; lexical handicaps ]</div>
+          <div class="armory-list">
+            <div>+ Sensory Blackout (Strict bans on visual or auditory descriptions)</div>
+            <div>+ Taboo Lists (Banned environments, specific words, or identity pronouns)</div>
+            <div>+ The Adjective Ban (Zero descriptive adjectives allowed)</div>
+            <div>+ Required Anchors (4-Word chains &amp; locked single-syllable pivots)</div>
+          </div>
         </div>
-      </div>
 
-      <div class="armory-group">
-        <div class="armory-label">[ structural &amp; grammatical traps ]</div>
-        <div class="armory-list">
-          <div>+ Grid Locks &amp; Countdowns (Fixed stanza limits like 3x4, 5x2, or shrinking 5-4-3-2-1)</div>
-          <div>+ Syllable Topography (Rigid math like 3-5-7 ladders or 5-3-1-3-5 hourglasses)</div>
-          <div>+ The Staccato (Strict 5-word limits per line/thought)</div>
-          <div>+ Breath Control (Zero punctuation runs &amp; infinite reading loops)</div>
-          <div>+ Syntax Locks (Imperative commands only, or zero declarative statements)</div>
+        <div class="armory-group">
+          <div class="armory-label">[ structural &amp; grammatical traps ]</div>
+          <div class="armory-list">
+            <div>+ Grid Locks &amp; Countdowns (Fixed stanza limits like 3x4, 5x2, or shrinking 5-4-3-2-1)</div>
+            <div>+ Syllable Topography (Rigid math like 3-5-7 ladders or 5-3-1-3-5 hourglasses)</div>
+            <div>+ The Staccato (Strict 5-word limits per line/thought)</div>
+            <div>+ Breath Control (Zero punctuation runs &amp; infinite reading loops)</div>
+            <div>+ Syntax Locks (Imperative commands only, or zero declarative statements)</div>
+          </div>
         </div>
       </div>
     </div>
 
     <div class="section-box">
-      <div class="section-label">05 // transparency</div>
+      <div class="section-label">04 // transparency</div>
       <div class="lang-block">Because there is no filtering, there is no quality control. Some entries will be sharp. Others will be messy, disjointed, or objectively bad. All of them are published. This is an archive of process, not a portfolio of perfection.</div>
       <div class="lang-block translation">필터링이 없기 때문에 품질 관리도 없습니다. 어떤 글은 날카로울 것입니다. 어떤 글은 지저분하거나 산만하거나 객관적으로 나쁠 수도 있습니다. 하지만 그 모든 것들이 여과 없이 게시됩니다. 이것은 과정의 아카이브이지 완벽함의 포트폴리오가 아닙니다.</div>
       <div class="lang-block translation">Como no hay filtros, no hay control de calidad. Algunas entradas serán precisas. Otras serán desordenadas, inconexas u objetivamente malas. Todas se publican. Este es un archivo de proceso, no un portafolio de perfección.</div>
