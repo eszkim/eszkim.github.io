@@ -3,20 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About | ZamKim</title>
+  <title>ZamKim</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&family=Spectral:wght@400;600&display=swap');
-
-    /* Spectral is now the universal "everything that isn't a nav link" font.
-       Nanum Myeongjo is reserved for nav/menu links via .nav-font below,
-       so the two fonts stay cleanly separated by role, not by guesswork. */
+    @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&display=swap');
     body {
-      font-family: 'Spectral', serif;
-      background-color: #f0eee9;
-      color: #2a2a28;
+      font-family: 'Nanum Myeongjo', serif;
+      background-color: #f0eee9; 
+      color: #2a2a28; 
       display: flex;
       justify-content: center;
-      padding: 8vh 20px;
+      align-items: center;
+      height: 100vh;
       margin: 0;
       -webkit-tap-highlight-color: transparent;
       opacity: 0;
@@ -27,19 +24,44 @@
     }
     
     @media (prefers-color-scheme: dark) {
-      body {
-        background-color: #161514;
-        color: #dcdad5;
-      }
+      body { background-color: #161514; color: #dcdad5; }
+    }
+    /* Standardized flex container for the entire list */
+    ul { 
+      list-style: none; 
+      padding: 0; 
+      text-align: center; 
+      margin: 0; 
+      display: flex; 
+      flex-direction: column; 
+      gap: 32px; 
+    }
+    /* Force every list item to a fixed block */
+    li { 
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
     }
 
-    /* Reusable class for anything that should look like a homepage nav link */
-    .nav-font {
-      font-family: 'Nanum Myeongjo', serif;
+    /* HOVER BLUR (homepage only)
+       When any top-level menu item is hovered, every other item blurs
+       and slightly dims, while the hovered one stays sharp and fully
+       readable. Transition is smooth in both directions. */
+    li {
+      transition: filter 0.3s ease, opacity 0.3s ease;
     }
-
-    /* RGB Glitch — same animation as the homepage, now shared by any
-       element with the .glitch-link class */
+    ul.menu-hovering li:not(.is-hovered):not(.has-open-submenu) {
+      filter: blur(4px);
+      opacity: 0.4;
+    }
+    /* Anything inside a top-level item marked has-open-submenu (i.e. the
+       submenu's own <li> entries) stays sharp regardless of hover state.
+       Higher specificity here overrides the blur rule above. */
+    li.has-open-submenu .submenu li {
+      filter: none !important;
+      opacity: 1 !important;
+    }
+    /* RGB Glitch (Updated selector to match structure) */
     @keyframes rgb-split-glitch {
       0%   { text-shadow: none; transform: translate(0, 0); }
       10%  { text-shadow: 6px 0 0px rgba(255,0,0,0.8), -6px 0 0px rgba(0,255,255,0.8); transform: translate(-5px, 1px); }
@@ -51,83 +73,193 @@
       80%  { text-shadow: 2px 0 0px rgba(255,0,0,0.3), -2px 0 0px rgba(0,255,255,0.3); transform: translate(-1px, 0); }
       100% { text-shadow: none; transform: translate(0, 0); }
     }
+    .main-link {
+      color: inherit;
+      text-decoration: none;
+      font-size: 1.3rem;
+      letter-spacing: 0.15em;
+      opacity: 0.6;
+      transition: opacity 0.3s ease; 
+      cursor: pointer;
+    }
     .glitch-link:hover {
       opacity: 1;
       animation: rgb-split-glitch 0.6s linear both;
     }
-
-    /* Unifying the back button to match the rest of the page */
-    .back-btn {
-      color: inherit;
+    /* Stays on for the entire time a dropdown is open, so opacity never
+       dips between glitch bursts — independent of the burst animation */
+    .glitch-link.menu-active {
+      opacity: 1;
+    }
+    /* Triggered by JS while a dropdown is open: plays one glitch burst
+       at a random duration set via the --glitch-duration custom property.
+       Opacity here is redundant with .menu-active but harmless to repeat. */
+    .glitch-link.glitch-burst {
+      opacity: 1;
+      animation: rgb-split-glitch var(--glitch-duration, 0.6s) linear both;
+    }
+    /* FIXED: height is now set in pixels by JavaScript to match each
+       submenu's real content height, so opening and closing both animate
+       across the exact same distance — smooth and symmetric both ways. */
+    .submenu-wrapper {
+      height: 0;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      overflow: hidden;
+      transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .submenu {
+      min-height: 0; 
+      display: flex;
+      flex-direction: column;
+      gap: 12px; 
+      padding-top: 15px;
+      margin: 0;
+      padding-left: 0;
+    }
+    .submenu a {
+      font-size: 0.8rem;
+      opacity: 0.7;
       text-decoration: none;
-      font-size: 0.95rem;
-      opacity: 0.5;
-      transition: opacity 0.3s ease;
-      display: inline-block;
-      margin-bottom: 24px;
-      letter-spacing: 0.1em;
+      color: inherit;
       cursor: pointer;
+      transition: opacity 0.3s ease;
     }
-
-    .container {
-      width: 100%;
-      max-width: 720px;
-    }
+    .submenu a:hover { opacity: 1; }
   </style>
 </head>
 <body>
-
-  <div class="container">
+  <ul>
+    <li><a href="/about-me.html" class="main-link glitch-link">about me</a></li>
     
-    <!-- NAVIGATION -->
-    <a href="/" class="back-btn nav-font glitch-link">[ ← menu ]</a>
-
-    <!-- YOUR ABOUT ME BOX -->
-    <div style="font-size: 1.05rem; line-height: 1.8; color: inherit; border: 1px solid rgba(150, 150, 150, 0.2); border-radius: 4px; padding: 32px; box-sizing: border-box;">
-
-      <!-- HERO / IDENTIFIER -->
-      <div style="border-bottom: 1px solid rgba(150, 150, 150, 0.2); padding-bottom: 20px; margin-bottom: 28px;">
-        <div style="font-size: 1.75rem; font-weight: bold; letter-spacing: -0.02em;">
-          About Me
-        </div>
+    <li>
+      <a class="main-link glitch-link" onclick="toggleMenu(this)">texts</a>
+      <div class="submenu-wrapper">
+        <ul class="submenu">
+          <li><a href="/curated.html">curated</a></li>
+          <li><a href="/the-loop.html">the loop</a></li>
+        </ul>
       </div>
-
-      <!-- BODY COPY -->
-      <div style="margin-bottom: 24px;">
-        Hi. I'm Sam.
+    </li>
+    <li>
+      <a class="main-link glitch-link" onclick="toggleMenu(this)">audio</a>
+      <div class="submenu-wrapper">
+        <ul class="submenu">
+          <li><a href="/releases.html">releases</a></li>
+          <li><a href="/sketches.html">sketches</a></li>
+        </ul>
       </div>
-
-      <div style="margin-bottom: 24px;">
-        Also known by my friends as Zam, my stage name ZamKim, or my legal name and to Koreans as Eun Soo Kim (김은수).
+    </li>
+    <li>
+      <a class="main-link glitch-link" onclick="toggleMenu(this)">visuals</a>
+      <div class="submenu-wrapper">
+        <ul class="submenu">
+          <li><a href="/studies.html">studies</a></li>
+          <li><a href="/glimpses.html">glimpses</a></li>
+        </ul>
       </div>
-
-      <div style="margin-bottom: 24px;">
-        I grew up in El Salvador between the ages of two and eighteen attending a British school. I am Korean by birth, raised by Korean parents. Due to all of this, my head naturally operates in a messy bleed of English, Spanish, and Korean—and now, more than ever, I'm unable to honestly say what my strongest language is. Having spent my formative years inside such varied cultures, physical geography has never dictated who or what I am; my internal world does.
-      </div>
-
-      <div style="margin-bottom: 24px;">
-        When I want to talk to the world, I make music. I enjoy building soundscapes where other people can live, mostly with the aim of offering someone the same honest lifeline that music once gave me. But when I need to talk to myself, I write poetry. It’s quieter, messier, and strictly a coping mechanism—a place to take an abstract thought and try to paint it into an object just to see if it holds its shape. <strong style="text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px;">This space is strictly for the latter.</strong>
-      </div>
-
-      <div style="margin-bottom: 40px;">
-        The daily project is something I started to develop my own literary language and world—hence why a lot of it will feel rough. It runs on prompts generated by a system I set up, using constraints that evolve over time. Other than "the project", I'll occasionally write freely about whatever I'm feeling at the moment, and probably publish the ones I feel are ready to say hi to the world.
-      </div>
-
-      <!-- SIGN-OFF -->
-      <div style="text-align: center; font-size: 0.85rem; letter-spacing: 0.05em; color: inherit; opacity: 0.6; border-top: 1px solid rgba(150, 150, 150, 0.2); padding-top: 24px;">
-        <div style="margin-bottom: 14px;">
-          Read whatever you want. Take what you need.
-        </div>
-        <div>
-          <a href="https://instagram.com/zamkim" target="_blank" rel="noopener noreferrer" class="nav-font glitch-link" style="color: inherit; text-decoration: none; opacity: 0.6;">[@zamkim]</a>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
+    </li>
+    
+    <li><a href="https://instagram.com/zamkim" target="_blank" rel="noopener noreferrer" class="main-link glitch-link">@zamkim</a></li>
+  </ul>
   <script>
-    // PAGE FADE TRANSITION (see index.html for full explanation)
+    function toggleMenu(element) {
+      const wrapper = element.nextElementSibling;
+      const parentItem = element.closest('li');
+      const isOpen = wrapper.classList.contains('open');
+
+      // Close every dropdown first (animates them back to 0)
+      document.querySelectorAll('.submenu-wrapper').forEach(menu => {
+        menu.style.height = '0px';
+        menu.classList.remove('open');
+      });
+      // Clear the "has an open dropdown" marker from every top-level item
+      topLevelItems.forEach(item => item.classList.remove('has-open-submenu'));
+      // Stop any glitch loop currently running, regardless of which link
+      stopGlitchLoop();
+
+      // If the clicked one wasn't already open, open it by measuring
+      // its real content height and animating to that exact value
+      if (!isOpen) {
+        const submenu = wrapper.querySelector('.submenu');
+        const fullHeight = submenu.scrollHeight;
+        wrapper.style.height = fullHeight + 'px';
+        wrapper.classList.add('open');
+        parentItem.classList.add('has-open-submenu');
+        startGlitchLoop(element);
+      }
+    }
+
+    // INFINITE GLITCH LOOP (while a dropdown is open)
+    // Plays the glitch animation in repeated bursts on the parent link,
+    // with both the burst duration and the pause between bursts randomized
+    // between 0.1s and 0.7s each time, for an irregular, unstable feel.
+    let glitchTimeoutId = null;
+    let glitchActiveLink = null;
+
+    function randomDuration() {
+      return 0.1 + Math.random() * 0.6; // seconds, between 0.1 and 0.7
+    }
+
+    function runGlitchBurst(link) {
+      const burstSeconds = randomDuration();
+      link.style.setProperty('--glitch-duration', burstSeconds + 's');
+      link.classList.add('glitch-burst');
+
+      glitchTimeoutId = setTimeout(() => {
+        link.classList.remove('glitch-burst');
+        const pauseSeconds = randomDuration();
+        glitchTimeoutId = setTimeout(() => runGlitchBurst(link), pauseSeconds * 1000);
+      }, burstSeconds * 1000);
+    }
+
+    function startGlitchLoop(link) {
+      glitchActiveLink = link;
+      link.classList.add('menu-active');
+      runGlitchBurst(link);
+    }
+
+    function stopGlitchLoop() {
+      if (glitchTimeoutId) {
+        clearTimeout(glitchTimeoutId);
+        glitchTimeoutId = null;
+      }
+      if (glitchActiveLink) {
+        glitchActiveLink.classList.remove('glitch-burst');
+        glitchActiveLink.classList.remove('menu-active');
+        glitchActiveLink.style.removeProperty('--glitch-duration');
+        glitchActiveLink = null;
+      }
+    }
+
+    // HOVER BLUR — only the top-level menu (the outer <ul>), not the
+    // nested submenu items, so opening a dropdown doesn't trigger this.
+    const topLevelMenu = document.querySelector('body > ul');
+    const topLevelItems = topLevelMenu.querySelectorAll(':scope > li');
+
+    topLevelItems.forEach(item => {
+      item.addEventListener('mouseenter', () => {
+        topLevelMenu.classList.add('menu-hovering');
+        item.classList.add('is-hovered');
+      });
+      item.addEventListener('mouseleave', () => {
+        item.classList.remove('is-hovered');
+        // Only fully clear the "hovering" state once the mouse has left
+        // every top-level item — otherwise moving from one link straight
+        // to an adjacent one would flash the blur off in between.
+        const stillHoveringAny = Array.from(topLevelItems).some(i => i.matches(':hover'));
+        if (!stillHoveringAny) {
+          topLevelMenu.classList.remove('menu-hovering');
+        }
+      });
+    });
+
+    // PAGE FADE TRANSITION
+    // Fades the page in on arrival, and fades it out before navigating
+    // away on any normal internal link click. External links, new-tab
+    // links, and same-page anchor links are left alone so they behave
+    // exactly as expected (no interception).
     window.addEventListener('DOMContentLoaded', () => {
       document.body.classList.add('loaded');
     });
@@ -149,6 +281,5 @@
       });
     });
   </script>
-
 </body>
 </html>
