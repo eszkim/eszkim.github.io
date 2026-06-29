@@ -2,10 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>ZamKim</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&display=swap');
+    html, body {
+      height: 100%;
+      overflow: hidden;
+    }
     body {
       font-family: 'Nanum Myeongjo', serif;
       background-color: #f0eee9; 
@@ -14,10 +18,16 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
+      height: 100dvh;
       margin: 0;
       -webkit-tap-highlight-color: transparent;
       opacity: 0;
       transition: opacity 0.35s ease;
+      overscroll-behavior: none;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
     }
     body.loaded {
       opacity: 1;
@@ -43,19 +53,19 @@
       align-items: center; 
     }
 
-    /* HOVER BLUR (homepage only)
-       When any top-level menu item is hovered, every other item blurs
-       and slightly dims, while the hovered one stays sharp and fully
-       readable. Transition is smooth in both directions. */
+    /* DROPDOWN BLUR (homepage only)
+       When a dropdown is open, every other top-level item blurs
+       and slightly dims, while the active one (and its submenu)
+       stays sharp and fully readable. Transition is smooth both ways. */
     li {
       transition: filter 0.3s ease, opacity 0.3s ease;
     }
-    ul.menu-hovering li:not(.is-hovered):not(.has-open-submenu) {
-      filter: blur(4px);
-      opacity: 0.4;
+    ul.menu-dropdown-open li:not(.has-open-submenu) {
+      filter: blur(2px);
+      opacity: 0.55;
     }
     /* Anything inside a top-level item marked has-open-submenu (i.e. the
-       submenu's own <li> entries) stays sharp regardless of hover state.
+       submenu's own <li> entries) stays sharp regardless of blur state.
        Higher specificity here overrides the blur rule above. */
     li.has-open-submenu .submenu li {
       filter: none !important;
@@ -134,7 +144,7 @@
     <li><a href="/about-me.html" class="main-link glitch-link">about me</a></li>
     
     <li>
-      <a class="main-link glitch-link" onclick="toggleMenu(this)">texts</a>
+      <a class="main-link glitch-link" onclick="toggleMenu(this, event)">texts</a>
       <div class="submenu-wrapper">
         <ul class="submenu">
           <li><a href="/curated.html">curated</a></li>
@@ -143,7 +153,7 @@
       </div>
     </li>
     <li>
-      <a class="main-link glitch-link" onclick="toggleMenu(this)">audio</a>
+      <a class="main-link glitch-link" onclick="toggleMenu(this, event)">audio</a>
       <div class="submenu-wrapper">
         <ul class="submenu">
           <li><a href="/releases.html">releases</a></li>
@@ -152,7 +162,7 @@
       </div>
     </li>
     <li>
-      <a class="main-link glitch-link" onclick="toggleMenu(this)">visuals</a>
+      <a class="main-link glitch-link" onclick="toggleMenu(this, event)">visuals</a>
       <div class="submenu-wrapper">
         <ul class="submenu">
           <li><a href="/studies.html">studies</a></li>
@@ -164,20 +174,27 @@
     <li><a href="https://instagram.com/zamkim" target="_blank" rel="noopener noreferrer" class="main-link glitch-link">@zamkim</a></li>
   </ul>
   <script>
-    function toggleMenu(element) {
+    const topLevelMenu = document.querySelector('body > ul');
+    const topLevelItems = topLevelMenu.querySelectorAll(':scope > li');
+
+    function closeAllMenus() {
+      document.querySelectorAll('.submenu-wrapper').forEach(menu => {
+        menu.style.height = '0px';
+        menu.classList.remove('open');
+      });
+      topLevelItems.forEach(item => item.classList.remove('has-open-submenu'));
+      topLevelMenu.classList.remove('menu-dropdown-open');
+      stopGlitchLoop();
+    }
+
+    function toggleMenu(element, event) {
+      if (event) event.stopPropagation();
       const wrapper = element.nextElementSibling;
       const parentItem = element.closest('li');
       const isOpen = wrapper.classList.contains('open');
 
       // Close every dropdown first (animates them back to 0)
-      document.querySelectorAll('.submenu-wrapper').forEach(menu => {
-        menu.style.height = '0px';
-        menu.classList.remove('open');
-      });
-      // Clear the "has an open dropdown" marker from every top-level item
-      topLevelItems.forEach(item => item.classList.remove('has-open-submenu'));
-      // Stop any glitch loop currently running, regardless of which link
-      stopGlitchLoop();
+      closeAllMenus();
 
       // If the clicked one wasn't already open, open it by measuring
       // its real content height and animating to that exact value
@@ -187,14 +204,22 @@
         wrapper.style.height = fullHeight + 'px';
         wrapper.classList.add('open');
         parentItem.classList.add('has-open-submenu');
+        topLevelMenu.classList.add('menu-dropdown-open');
         startGlitchLoop(element);
       }
     }
 
+    // Click anywhere outside an open dropdown's link/submenu closes it
+    document.addEventListener('click', (e) => {
+      const openWrapper = document.querySelector('.submenu-wrapper.open');
+      if (!openWrapper) return;
+      const openParentItem = openWrapper.closest('li');
+      if (!openParentItem.contains(e.target)) {
+        closeAllMenus();
+      }
+    });
+
     // INFINITE GLITCH LOOP (while a dropdown is open)
-    // Plays the glitch animation in repeated bursts on the parent link,
-    // with both the burst duration and the pause between bursts randomized
-    // between 0.1s and 0.7s each time, for an irregular, unstable feel.
     let glitchTimeoutId = null;
     let glitchActiveLink = null;
 
@@ -233,33 +258,7 @@
       }
     }
 
-    // HOVER BLUR — only the top-level menu (the outer <ul>), not the
-    // nested submenu items, so opening a dropdown doesn't trigger this.
-    const topLevelMenu = document.querySelector('body > ul');
-    const topLevelItems = topLevelMenu.querySelectorAll(':scope > li');
-
-    topLevelItems.forEach(item => {
-      item.addEventListener('mouseenter', () => {
-        topLevelMenu.classList.add('menu-hovering');
-        item.classList.add('is-hovered');
-      });
-      item.addEventListener('mouseleave', () => {
-        item.classList.remove('is-hovered');
-        // Only fully clear the "hovering" state once the mouse has left
-        // every top-level item — otherwise moving from one link straight
-        // to an adjacent one would flash the blur off in between.
-        const stillHoveringAny = Array.from(topLevelItems).some(i => i.matches(':hover'));
-        if (!stillHoveringAny) {
-          topLevelMenu.classList.remove('menu-hovering');
-        }
-      });
-    });
-
     // PAGE FADE TRANSITION
-    // Fades the page in on arrival, and fades it out before navigating
-    // away on any normal internal link click. External links, new-tab
-    // links, and same-page anchor links are left alone so they behave
-    // exactly as expected (no interception).
     window.addEventListener('DOMContentLoaded', () => {
       document.body.classList.add('loaded');
     });
