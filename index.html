@@ -101,12 +101,11 @@
     .glitch-link.menu-active {
       opacity: 1;
     }
-    /* Triggered by JS while a dropdown is open: plays one glitch burst
-       at a random duration set via the --glitch-duration custom property.
-       Opacity here is redundant with .menu-active but harmless to repeat. */
+    /* Triggered by JS while a dropdown is open: JS sets the actual
+       animation (name + random duration) directly via inline style;
+       this class just keeps opacity at full strength during the loop. */
     .glitch-link.glitch-burst {
       opacity: 1;
-      animation: rgb-split-glitch var(--glitch-duration, 0.6s) linear both;
     }
     /* FIXED: height is now set in pixels by JavaScript to match each
        submenu's real content height, so opening and closing both animate
@@ -229,10 +228,15 @@
 
     function runGlitchBurst(link) {
       const burstSeconds = randomDuration();
-      link.style.setProperty('--glitch-duration', burstSeconds + 's');
+      // Clear the animation, force a reflow, then set it fresh — this is
+      // the most reliable way to restart a CSS animation on mobile browsers
+      link.style.animation = 'none';
+      void link.offsetWidth;
+      link.style.animation = `rgb-split-glitch ${burstSeconds}s linear`;
       link.classList.add('glitch-burst');
 
       glitchTimeoutId = setTimeout(() => {
+        link.style.animation = 'none';
         link.classList.remove('glitch-burst');
         const pauseSeconds = randomDuration();
         glitchTimeoutId = setTimeout(() => runGlitchBurst(link), pauseSeconds * 1000);
@@ -251,9 +255,9 @@
         glitchTimeoutId = null;
       }
       if (glitchActiveLink) {
+        glitchActiveLink.style.animation = '';
         glitchActiveLink.classList.remove('glitch-burst');
         glitchActiveLink.classList.remove('menu-active');
-        glitchActiveLink.style.removeProperty('--glitch-duration');
         glitchActiveLink = null;
       }
     }
