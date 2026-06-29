@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Visuals | ZamKim</title>
+  <title>ZamKim</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&family=Spectral:wght@400;600&display=swap');
     body {
@@ -16,181 +16,80 @@
       margin: 0;
       min-height: 100vh;
       -webkit-tap-highlight-color: transparent;
+      opacity: 0;
+      transition: opacity 0.35s ease;
     }
-
+    body.loaded {
+      opacity: 1;
+    }
+    
     @media (prefers-color-scheme: dark) {
       body { background-color: #161514; color: #dcdad5; }
     }
-
     .nav-font { font-family: 'Nanum Myeongjo', serif; }
-
     @keyframes rgb-split-glitch {
       0%   { text-shadow: none; transform: translate(0, 0); }
-      20%  { text-shadow: 5px 0 0px rgba(255,0,0,0.7), -5px 0 0px rgba(0,255,255,0.7); transform: translate(-4px, 0); }
+      10%  { text-shadow: 6px 0 0px rgba(255,0,0,0.8), -6px 0 0px rgba(0,255,255,0.8); transform: translate(-5px, 1px); }
+      20%  { text-shadow: -7px 0 0px rgba(255,0,0,0.8), 7px 0 0px rgba(0,255,255,0.8); transform: translate(5px, -1px); }
+      30%  { text-shadow: 5px 0 0px rgba(255,0,0,0.7), -5px 0 0px rgba(0,255,255,0.7); transform: translate(-3px, 1px); }
+      40%  { text-shadow: -6px 0 0px rgba(255,0,0,0.8), 6px 0 0px rgba(0,255,255,0.8); transform: translate(4px, 0); }
+      50%  { text-shadow: 4px 0 0px rgba(255,0,0,0.6), -4px 0 0px rgba(0,255,255,0.6); transform: translate(-2px, -1px); }
+      65%  { text-shadow: -3px 0 0px rgba(255,0,0,0.5), 3px 0 0px rgba(0,255,255,0.5); transform: translate(2px, 0); }
+      80%  { text-shadow: 2px 0 0px rgba(255,0,0,0.3), -2px 0 0px rgba(0,255,255,0.3); transform: translate(-1px, 0); }
       100% { text-shadow: none; transform: translate(0, 0); }
     }
-    .glitch-link:hover { opacity: 1; animation: rgb-split-glitch 0.25s linear both; }
-
+    .glitch-link:hover { opacity: 1; animation: rgb-split-glitch 0.6s linear both; }
     .back-btn {
       color: inherit; text-decoration: none; font-size: 0.95rem; opacity: 0.5;
       transition: opacity 0.3s ease;
       display: inline-block; margin-bottom: 24px; letter-spacing: 0.1em; cursor: pointer;
     }
-
-    /* Wider than the text-focused pages (720px) since masonry columns
-       need more horizontal room to breathe at the same negative-space feel */
-    .container { width: 100%; max-width: 980px; }
-
+    .container { width: 100%; max-width: 720px; }
     .page-title {
       font-family: 'Nanum Myeongjo', serif;
       font-size: 2rem;
       font-weight: bold;
       letter-spacing: -0.02em;
-      margin-bottom: 12px;
+      margin-bottom: 32px;
       border-bottom: 1px solid rgba(150, 150, 150, 0.2);
       padding-bottom: 24px;
     }
-
-    .page-subtitle {
-      font-size: 0.95rem;
-      line-height: 1.7;
-      opacity: 0.75;
-      margin: 20px 0 48px;
-    }
-
-    /* MASONRY GRID
-       Generous gaps (32px) carry the negative-space feel.
-       2 columns on mobile, 3 on wider screens. */
-    .gallery {
-      column-count: 2;
-      column-gap: 32px;
-    }
-    @media (min-width: 700px) {
-      .gallery { column-count: 3; }
-    }
-
-    .gallery-item {
-      margin-bottom: 32px;
-      break-inside: avoid;
-      cursor: pointer;
-    }
-
-    .gallery-item img {
-      display: block;
-      width: 100%;
-      height: auto;
-      border-radius: 2px;
-      transition: opacity 0.25s ease;
-    }
-    .gallery-item:hover img { opacity: 0.85; }
-
-    /* LIGHTBOX */
-    .lightbox {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.88);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 32px;
-      z-index: 100;
-      cursor: zoom-out;
-    }
-    .lightbox.open { display: flex; }
-
-    .lightbox img {
-      max-width: 100%;
-      max-height: 100%;
-      border-radius: 2px;
-      cursor: default;
-    }
-
-    .lightbox-close {
-      position: fixed;
-      top: 28px;
-      right: 32px;
-      color: #ece9e3;
-      font-family: 'Nanum Myeongjo', serif;
-      font-size: 0.9rem;
-      letter-spacing: 0.1em;
+    .placeholder-note {
       opacity: 0.6;
-      cursor: pointer;
-      transition: opacity 0.3s ease;
+      font-style: italic;
+      font-size: 0.95rem;
     }
-    .lightbox-close:hover { opacity: 1; }
   </style>
 </head>
 <body>
-
   <div class="container">
-
     <a href="/" class="back-btn nav-font glitch-link">[ &larr; menu ]</a>
-
-    <div class="page-title">visuals</div>
-    <div class="page-subtitle">
-      A loose collection of photographs &mdash; no particular order, no particular theme. Click any image to view it larger.
-    </div>
-
-    <div class="gallery" id="gallery"></div>
-
-  </div>
-
-  <div class="lightbox" id="lightbox">
-    <div class="lightbox-close">[ close ]</div>
-    <img id="lightbox-img" src="" alt="">
+    <div class="page-title">[page title here]</div>
+    <p class="placeholder-note">Under construction.</p>
   </div>
 
   <script>
-    /* PHOTOS
-       To add a new photo: drop the file into /images/ in your repo,
-       then add one line here with its filename and a short alt description.
-       Newest can go at the top or bottom — order here is the order shown. */
-    const photos = [
-      { src: "/images/sample-1.jpg", alt: "Sample placeholder photo 1" },
-      { src: "/images/sample-2.jpg", alt: "Sample placeholder photo 2" },
-      { src: "/images/sample-3.jpg", alt: "Sample placeholder photo 3" },
-      { src: "/images/sample-4.jpg", alt: "Sample placeholder photo 4" },
-      { src: "/images/sample-5.jpg", alt: "Sample placeholder photo 5" },
-      { src: "/images/sample-6.jpg", alt: "Sample placeholder photo 6" }
-    ];
-
-    const gallery = document.getElementById('gallery');
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-
-    photos.forEach(photo => {
-      const item = document.createElement('div');
-      item.className = 'gallery-item';
-
-      const img = document.createElement('img');
-      img.src = photo.src;
-      img.alt = photo.alt;
-      img.loading = 'lazy';
-
-      item.appendChild(img);
-      item.onclick = () => openLightbox(photo.src, photo.alt);
-
-      gallery.appendChild(item);
+    // PAGE FADE TRANSITION (see index.html for full explanation)
+    window.addEventListener('DOMContentLoaded', () => {
+      document.body.classList.add('loaded');
     });
 
-    function openLightbox(src, alt) {
-      lightboxImg.src = src;
-      lightboxImg.alt = alt;
-      lightbox.classList.add('open');
-    }
+    document.querySelectorAll('a[href]').forEach(link => {
+      const href = link.getAttribute('href');
+      const isExternal = link.target === '_blank' || href.startsWith('http');
+      const isAnchorOnly = href.startsWith('#');
+      const isJsHandled = link.hasAttribute('onclick');
 
-    lightbox.addEventListener('click', () => {
-      lightbox.classList.remove('open');
-      lightboxImg.src = '';
-    });
+      if (isExternal || isAnchorOnly || isJsHandled) return;
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        lightbox.classList.remove('open');
-        lightboxImg.src = '';
-      }
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.body.classList.remove('loaded');
+        setTimeout(() => {
+          window.location.href = href;
+        }, 350);
+      });
     });
   </script>
-
 </body>
 </html>
