@@ -82,31 +82,156 @@
       width: 100%;
       max-width: 720px;
     }
+    .page-title {
+      font-family: 'Nanum Myeongjo', serif;
+      font-size: 1.75rem;
+      font-weight: bold;
+      letter-spacing: -0.02em;
+      margin-bottom: 28px;
+      border-bottom: 1px solid rgba(150, 150, 150, 0.2);
+      padding-bottom: 24px;
+    }
+
+    .about-body {
+      font-size: 0.95rem;
+      line-height: 1.85;
+    }
+
+    /* Standard paragraph spacing */
+    .p {
+      margin-bottom: 22px;
+    }
+
+    /* Short punchy lines — more air above and below so they land */
+    .p-beat {
+      margin-top: 10px;
+      margin-bottom: 32px;
+    }
+
+    /* The identity climax lines — bold, centered, equal space above and below */
+    .p-climax-block {
+      margin-top: 32px;
+      margin-bottom: 32px;
+      text-align: center;
+    }
+
+    .p-climax {
+      font-family: 'Nanum Myeongjo', serif;
+      font-size: 1.12rem;
+      font-weight: bold;
+      line-height: 1.8;
+    }
+
+    /* Quiet closing area */
+    .about-close {
+      margin-top: 48px;
+      padding-top: 28px;
+      border-top: 1px solid rgba(150, 150, 150, 0.2);
+      font-size: 0.88rem;
+      opacity: 0.65;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      align-items: center;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
 
   <div class="container">
-    
+
     <!-- NAVIGATION -->
-    <a href="/" class="back-btn nav-font glitch-link">[ ← menu ]</a>
+    <a href="/" class="back-btn nav-font glitch-link">[ &larr; menu ]</a>
 
-    <!-- YOUR ABOUT ME BOX -->
-    <div style="font-size: 1.05rem; line-height: 1.8; color: inherit; border: 1px solid rgba(150, 150, 150, 0.2); border-radius: 4px; padding: 32px; box-sizing: border-box;">
+    <div class="page-title">about me</div>
 
-      <!-- HERO / IDENTIFIER -->
-      <div style="border-bottom: 1px solid rgba(150, 150, 150, 0.2); padding-bottom: 20px; margin-bottom: 28px;">
-        <div style="font-size: 1.75rem; font-weight: bold; letter-spacing: -0.02em;">
-          About Me
-        </div>
+    <div class="about-body">
+
+      <div class="p">Hi. I'm Sam.</div>
+
+      <div class="p">Depending on when and where we met, you might know me as 은수 (Eun Soo, my legal Korean name), Zam, or ZamKim&mdash;the namesake of this website. Maybe even whatever name happened to introduce me first. None of them feels more &ldquo;real&rdquo; than the others.</div>
+
+      <div class="p">I was born in Korea, grew up in El Salvador, spent those years in a British school, and somehow ended up somewhere between three languages.</div>
+
+      <div class="p">I don't think in any one language anymore. I think somewhere between them. But of all the languages I've learned, music and poetry have always felt like home.</div>
+
+      <div class="p-beat"><em>People often ask me where I'm from.</em></div>
+
+      <div class="p-beat"><em>The truthful answer is usually too long.</em></div>
+
+      <div class="p">I write songs because some emotions refuse to fit inside conversation. I write poems because they let language wander where songs can't. I produce because I enjoy finding the space between silence and noise.</div>
+
+      <div class="p">None of it is about chasing perfection. It's about finding the one arrangement where everything suddenly makes sense.</div>
+
+      <div class="p-beat">When I'm not making something, I'm usually taking something apart.</div>
+
+      <div class="p">Sometimes it's a guitar. Sometimes a business problem. Sometimes a sentence that almost says what I mean.</div>
+
+      <div class="p">I enjoy understanding systems&mdash;the invisible rules beneath things&mdash;and asking whether those rules are actually necessary.</div>
+
+      <div class="p">That curiosity spills into almost everything I do. My day job has me working in international business. I've spent more hours than I'd like reading regulations and compliance documents, built an esports team from an idea into an identity, and lost entire evenings researching subjects I had no practical reason to learn.</div>
+
+      <div class="p">I'm rarely interested in becoming the world's leading expert on a topic. I'm much more interested in learning enough to connect it with something completely different.</div>
+
+      <div class="p">I admire people who build things that outlive trends. Songs that age well. Companies with character. Communities that feel like homes instead of audiences.</div>
+
+      <div class="p">If there's a thread connecting everything I make, it's probably this:</div>
+
+      <div class="p-climax-block">
+        <div class="p-climax">Identity isn't something you discover.</div>
+        <div class="p-climax">It's something you keep composing.</div>
       </div>
 
-      <!-- BODY COPY -->
-      <div style="margin-bottom: 24px;">
-        Hi.
+      <div class="p">So whether you're here because of a song, a poem, a guitar, a project, or pure coincidence&mdash;</div>
+
+      <div class="p-beat">Welcome.</div>
+
+      <div class="about-close">
+        <span>I hope you find something that stays with you.</span>
+        <a href="https://instagram.com/zamkim" target="_blank" rel="noopener noreferrer" class="nav-font glitch-link" style="color: inherit; text-decoration: none;">[@zamkim]</a>
       </div>
 
-      <div style="margin-bottom: 24px;">
+    </div>
+  </div>
+
+  
+  <script>
+    // Double rAF ensures the browser has committed the initial opacity:0 paint
+    // before we add 'loaded' — so the 0.35s CSS transition always fires,
+    // even in sandboxed iframes where DOMContentLoaded can be unreliable.
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        document.body.classList.add('loaded');
+      });
+    });
+
+    window.addEventListener('pageshow', (e) => {
+      if (e.persisted) {
+        document.body.classList.add('loaded');
+      }
+    });
+
+    document.querySelectorAll('a[href]').forEach(link => {
+      const href = link.getAttribute('href');
+      const isExternal = link.target === '_blank' || href.startsWith('http');
+      const isAnchorOnly = href.startsWith('#');
+      const isJsHandled = link.hasAttribute('onclick');
+
+      if (isExternal || isAnchorOnly || isJsHandled) return;
+
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.body.classList.remove('loaded');
+        setTimeout(() => {
+          window.location.href = href;
+        }, 350);
+      });
+    });
+  </script>
+
+</body>
+</html>      <div style="margin-bottom: 24px;">
         I'm Sam.
       </div>
 
