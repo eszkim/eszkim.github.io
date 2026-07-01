@@ -89,8 +89,7 @@
       line-height: 1.7;
       color: inherit;
       opacity: 0.75;
-      border-bottom: 1px solid rgba(150, 150, 150, 0.2);
-      padding-bottom: 28px;
+      padding-bottom: 0;
     }
 
     .manifesto-link-wrapper {
@@ -243,6 +242,53 @@
     }
 
     .entry.active .entry-day { opacity: 1; }
+
+    /* DAY TRACKER — quiet mono line under the title */
+    .day-tracker {
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      font-size: 0.72rem;
+      opacity: 0.38;
+      letter-spacing: 0.06em;
+      margin-bottom: 20px;
+    }
+
+    /* FILTER BAR — sits between subtitle and entries */
+    .filter-bar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 20px 0;
+      border-top: 1px solid rgba(150, 150, 150, 0.2);
+      border-bottom: 1px solid rgba(150, 150, 150, 0.2);
+      margin-top: 20px;
+    }
+
+    .filter-btn {
+      font-size: 0.7rem;
+      letter-spacing: 0.03em;
+      padding: 2px 9px;
+      border-radius: 10px;
+      background: rgba(150, 150, 150, 0.12);
+      color: inherit;
+      opacity: 0.65;
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+      -webkit-appearance: none;
+      transition: opacity 0.2s ease, background 0.2s ease;
+    }
+    .filter-btn:hover { opacity: 1; }
+    .filter-btn.active {
+      opacity: 1;
+      background: rgba(150, 150, 150, 0.28);
+    }
+
+    /* ENTRY COLLAPSE WRAPPER — handles the filter hide/show animation.
+       Entries sit inside this; it collapses vertically when filtered out. */
+    .entry-collapse-wrapper {
+      overflow: hidden;
+      transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+    }
   </style>
 </head>
 <body>
@@ -252,11 +298,19 @@
     <a href="/" class="back-btn nav-font glitch-link">[ &larr; menu ]</a>
 
     <div class="page-title">the loop</div>
+    <div class="day-tracker">day <span id="day-count">—</span> — running</div>
     <div class="page-subtitle">
       A daily exercise in creative friction and a direct refusal to filter. Every 24 hours, a new poem written on the spot, driven by an unpredictable prompt engine &mdash; capturing the exact temperature of a fleeting headspace before it evaporates. No filtering, no quality control. This is an archive of process, not a portfolio of perfection.
       <div class="manifesto-link-wrapper">
         <a href="/the-loop/the-manifesto.html" class="manifesto-link glitch-link">the manifesto <span class="arrow">&rarr;</span></a>
       </div>
+    </div>
+
+    <div class="filter-bar">
+      <button class="filter-btn active" data-lang="all">all</button>
+      <button class="filter-btn" data-lang="english">english</button>
+      <button class="filter-btn" data-lang="spanish">spanish</button>
+      <button class="filter-btn" data-lang="korean">korean</button>
     </div>
 
     <div id="entries"></div>
@@ -536,7 +590,84 @@ poem: "Silence, blissful, with only my steady breaths\nFilling up the otherwise 
 
       wrapper.appendChild(row);
       wrapper.appendChild(bodyWrapper);
-      container.appendChild(wrapper);
+
+      // Outer collapse wrapper — handles filter hide/show animation.
+      // data-lang is the normalised language key used by the filter buttons.
+      const collapseWrapper = document.createElement('div');
+      collapseWrapper.className = 'entry-collapse-wrapper';
+      collapseWrapper.dataset.lang = entry.language.toLowerCase().split('[')[0].trim();
+      collapseWrapper.appendChild(wrapper);
+      container.appendChild(collapseWrapper);
+    });
+
+    // Store the natural (collapsed) height of every wrapper right after the
+    // DOM finishes painting — used to animate wrappers back into view.
+    const wrapperHeights = new Map();
+    requestAnimationFrame(() => {
+      document.querySelectorAll('.entry-collapse-wrapper').forEach(w => {
+        wrapperHeights.set(w, w.scrollHeight);
+      });
+    });
+
+    // AUTO DAY TRACKER
+    // Reads the day number from the first (latest) entry in the array —
+    // always stays in sync with what's actually published, no manual edits needed.
+    document.getElementById('day-count').textContent = entries[0].day;
+
+    // LANGUAGE FILTER
+    let activeFilter = 'all';
+
+    function applyFilter(lang) {
+      activeFilter = lang;
+
+      // Highlight the active button
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+      });
+
+      // Always close any open entry first — ensures scrollHeight measurements
+      // below reflect the collapsed (row-only) height, not an expanded body.
+      document.querySelectorAll('.entry.active').forEach(el => {
+        el.classList.remove('active');
+        el.querySelector('.entry-body-wrapper').style.height = '0px';
+      });
+
+      document.querySelectorAll('.entry-collapse-wrapper').forEach(wrapper => {
+        const matches = lang === 'all' || wrapper.dataset.lang === lang;
+
+        if (!matches) {
+          // HIDE: lock to current height, then animate to 0
+          wrapper.style.height = wrapper.scrollHeight + 'px';
+          void wrapper.offsetWidth; // force reflow so transition fires
+          wrapper.style.height = '0px';
+          wrapper.style.opacity = '0';
+          wrapper.style.pointerEvents = 'none';
+        } else {
+          // SHOW: only animate if it was actually hidden
+          if (wrapper.style.height === '0px') {
+            const naturalH = wrapperHeights.get(wrapper) || 80;
+            wrapper.style.pointerEvents = '';
+            wrapper.style.opacity = '1';
+            wrapper.style.height = naturalH + 'px';
+            // After transition finishes, remove explicit height so entries
+            // can expand freely when clicked (overflow:hidden + height:auto = fine)
+            const onEnd = (e) => {
+              if (e.propertyName === 'height') {
+                wrapper.style.height = 'auto';
+                wrapper.removeEventListener('transitionend', onEnd);
+              }
+            };
+            wrapper.addEventListener('transitionend', onEnd);
+          } else {
+            wrapper.style.pointerEvents = '';
+            wrapper.style.opacity = '1';
+          }
+        }
+      });
+    }
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => applyFilter(btn.dataset.lang));
     });
 
     function toggleEntry(day) {
@@ -571,12 +702,6 @@ poem: "Silence, blissful, with only my steady breaths\nFilling up the otherwise 
     // PAGE FADE TRANSITION (see index.html for full explanation)
     window.addEventListener('DOMContentLoaded', () => {
       document.body.classList.add('loaded');
-    });
-
-    window.addEventListener('pageshow', (e) => {
-      if (e.persisted) {
-        document.body.classList.add('loaded');
-      }
     });
 
     document.querySelectorAll('a[href]').forEach(link => {
