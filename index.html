@@ -276,6 +276,12 @@
       document.body.classList.add('loaded');
     });
 
+    window.addEventListener('pageshow', (e) => {
+      if (e.persisted) {
+        document.body.classList.add('loaded');
+      }
+    });
+
     document.querySelectorAll('a[href]').forEach(link => {
       const href = link.getAttribute('href');
       const isExternal = link.target === '_blank' || href.startsWith('http');
