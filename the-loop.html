@@ -741,7 +741,7 @@ poem: "Silence, blissful, with only my steady breaths\nFilling up the otherwise 
     function showShareToast() {
       shareToast.classList.add('visible');
       clearTimeout(toastTimeout);
-      toastTimeout = setTimeout(() => shareToast.classList.remove('visible'), 800);
+      toastTimeout = setTimeout(() => shareToast.classList.remove('visible'), 1000);
     }
 
     // Fallback copy for mobile Safari — creates a temporary textarea,
@@ -861,6 +861,12 @@ poem: "Silence, blissful, with only my steady breaths\nFilling up the otherwise 
         wrapper.classList.add('active');
         const inner = bodyWrapper.querySelector('.entry-body');
         bodyWrapper.style.height = inner.scrollHeight + 'px';
+        // Wait for the open animation then scroll the entry title to the top
+        setTimeout(() => {
+          const collapseWrapper = wrapper.closest('.entry-collapse-wrapper');
+          const top = (collapseWrapper || wrapper).getBoundingClientRect().top + window.scrollY - 24;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }, 420);
       }
     }
 
