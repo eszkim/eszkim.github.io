@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-D9CT5YRB0V"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-D9CT5YRB0V');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sounds | ZamKim</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&family=Spectral:wght@400;600&display=swap');
+
+    body {
+      font-family: 'Spectral', serif;
+      background-color: #f0eee9;
+      color: #2a2a28;
+      display: flex;
+      justify-content: center;
+      padding: 8vh 20px;
+      margin: 0;
+      -webkit-tap-highlight-color: transparent;
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+    body.loaded { opacity: 1; }
+
+    @media (prefers-color-scheme: dark) {
+      body { background-color: #161514; color: #dcdad5; }
+    }
+
+    .nav-font { font-family: 'Nanum Myeongjo', serif; }
+
+    @keyframes rgb-split-glitch {
+      0%   { text-shadow: none; transform: translate(0, 0); }
+      10%  { text-shadow: 6px 0 0px rgba(255,0,0,0.8), -6px 0 0px rgba(0,255,255,0.8); transform: translate(-5px, 1px); }
+      20%  { text-shadow: -7px 0 0px rgba(255,0,0,0.8), 7px 0 0px rgba(0,255,255,0.8); transform: translate(5px, -1px); }
+      30%  { text-shadow: 5px 0 0px rgba(255,0,0,0.7), -5px 0 0px rgba(0,255,255,0.7); transform: translate(-3px, 1px); }
+      40%  { text-shadow: -6px 0 0px rgba(255,0,0,0.8), 6px 0 0px rgba(0,255,255,0.8); transform: translate(4px, 0); }
+      50%  { text-shadow: 4px 0 0px rgba(255,0,0,0.6), -4px 0 0px rgba(0,255,255,0.6); transform: translate(-2px, -1px); }
+      65%  { text-shadow: -3px 0 0px rgba(255,0,0,0.5), 3px 0 0px rgba(0,255,255,0.5); transform: translate(2px, 0); }
+      80%  { text-shadow: 2px 0 0px rgba(255,0,0,0.3), -2px 0 0px rgba(0,255,255,0.3); transform: translate(-1px, 0); }
+      100% { text-shadow: none; transform: translate(0, 0); }
+    }
+    .glitch-link:hover {
+      opacity: 1;
+      animation: rgb-split-glitch 0.6s linear both;
+    }
+
+    .back-btn {
+      color: inherit;
+      text-decoration: none;
+      font-size: 0.95rem;
+      opacity: 0.5;
+      transition: opacity 0.3s ease;
+      display: inline-block;
+      margin-bottom: 24px;
+      letter-spacing: 0.1em;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 720px;
+    }
+
+    .page-title {
+      font-family: 'Nanum Myeongjo', serif;
+      font-size: 1.75rem;
+      font-weight: bold;
+      letter-spacing: -0.02em;
+      margin-bottom: 28px;
+    }
+
+    /* Intro is larger and more open here — matches the directness of the line */
+    .page-intro {
+      font-size: 1.1rem;
+      line-height: 2;
+      opacity: 0.7;
+      margin-bottom: 56px;
+    }
+
+    .sub-link {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      padding: 20px 0;
+      border-top: 1px solid rgba(150, 150, 150, 0.15);
+      border-bottom: 1px solid rgba(150, 150, 150, 0.15);
+      transition: opacity 0.25s ease;
+    }
+    .sub-link:hover { opacity: 0.65; }
+
+    .sub-link-name {
+      font-family: 'Nanum Myeongjo', serif;
+      font-size: 1.05rem;
+      letter-spacing: 0.05em;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .sub-link-desc {
+      font-size: 0.8rem;
+      opacity: 0.5;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <a href="/" class="back-btn nav-font glitch-link">[ &larr; menu ]</a>
+
+    <div class="page-title">sounds</div>
+
+    <div class="page-intro">
+      Music begins where words fall short. Through sound, I hope to help others understand emotions they may not yet have words for.
+    </div>
+
+    <a href="/releases.html" class="sub-link">
+      <span class="sub-link-name">releases</span>
+      <span class="sub-link-desc">music as a solo artist and with my bands. streaming and purchase links.</span>
+    </a>
+
+  </div>
+
+  <script>
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        document.body.classList.add('loaded');
+      });
+    });
+
+    window.addEventListener('pageshow', (e) => {
+      if (e.persisted) document.body.classList.add('loaded');
+    });
+
+    document.querySelectorAll('a[href]').forEach(link => {
+      const href = link.getAttribute('href');
+      const isExternal = link.target === '_blank' || href.startsWith('http');
+      const isAnchorOnly = href.startsWith('#');
+      const isJsHandled = link.hasAttribute('onclick');
+      if (isExternal || isAnchorOnly || isJsHandled) return;
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.body.classList.remove('loaded');
+        setTimeout(() => { window.location.href = href; }, 350);
+      });
+    });
+  </script>
+</body>
+</html>
