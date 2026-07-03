@@ -2,27 +2,27 @@
 <html lang="en">
 <head>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-D9CT5YRB0V"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-D9CT5YRB0V');
-</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-D9CT5YRB0V"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-D9CT5YRB0V');
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>ZamKim</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&display=swap');
+
     html, body {
       height: 100%;
       overflow: hidden;
     }
     body {
       font-family: 'Nanum Myeongjo', serif;
-      background-color: #f0eee9; 
-      color: #2a2a28; 
+      background-color: #f0eee9;
+      color: #2a2a28;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -38,49 +38,39 @@
       top: 0;
       left: 0;
     }
-    body.loaded {
-      opacity: 1;
-    }
-    
+    body.loaded { opacity: 1; }
+
     @media (prefers-color-scheme: dark) {
       body { background-color: #161514; color: #dcdad5; }
     }
-    /* Standardized flex container for the entire list */
-    ul { 
-      list-style: none; 
-      padding: 0; 
-      text-align: center; 
-      margin: 0; 
-      display: flex; 
-      flex-direction: column; 
-      gap: 32px; 
-    }
-    /* Force every list item to a fixed block */
-    li { 
-      display: flex; 
-      flex-direction: column; 
-      align-items: center; 
-    }
 
-    /* DROPDOWN BLUR (homepage only)
-       When a dropdown is open, every other top-level item blurs
-       and slightly dims, while the active one (and its submenu)
-       stays sharp and fully readable. Transition is smooth both ways. */
+    ul {
+      list-style: none;
+      padding: 0;
+      text-align: center;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
     li {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       transition: filter 0.3s ease, opacity 0.3s ease;
     }
+
+    /* DROPDOWN BLUR — only when a dropdown is open */
     ul.menu-dropdown-open li:not(.has-open-submenu) {
       filter: blur(2px);
       opacity: 0.55;
     }
-    /* Anything inside a top-level item marked has-open-submenu (i.e. the
-       submenu's own <li> entries) stays sharp regardless of blur state.
-       Higher specificity here overrides the blur rule above. */
     li.has-open-submenu .submenu li {
       filter: none !important;
       opacity: 1 !important;
     }
-    /* RGB Glitch (Updated selector to match structure) */
+
+    /* RGB GLITCH */
     @keyframes rgb-split-glitch {
       0%   { text-shadow: none; transform: translate(0, 0); }
       10%  { text-shadow: 6px 0 0px rgba(255,0,0,0.8), -6px 0 0px rgba(0,255,255,0.8); transform: translate(-5px, 1px); }
@@ -92,33 +82,24 @@
       80%  { text-shadow: 2px 0 0px rgba(255,0,0,0.3), -2px 0 0px rgba(0,255,255,0.3); transform: translate(-1px, 0); }
       100% { text-shadow: none; transform: translate(0, 0); }
     }
+
     .main-link {
       color: inherit;
       text-decoration: none;
       font-size: 1.3rem;
       letter-spacing: 0.15em;
       opacity: 0.6;
-      transition: opacity 0.3s ease; 
+      transition: opacity 0.3s ease;
       cursor: pointer;
     }
     .glitch-link:hover {
       opacity: 1;
       animation: rgb-split-glitch 0.6s linear both;
     }
-    /* Stays on for the entire time a dropdown is open, so opacity never
-       dips between glitch bursts — independent of the burst animation */
-    .glitch-link.menu-active {
-      opacity: 1;
-    }
-    /* Triggered by JS while a dropdown is open: JS sets the actual
-       animation (name + random duration) directly via inline style;
-       this class just keeps opacity at full strength during the loop. */
-    .glitch-link.glitch-burst {
-      opacity: 1;
-    }
-    /* FIXED: height is now set in pixels by JavaScript to match each
-       submenu's real content height, so opening and closing both animate
-       across the exact same distance — smooth and symmetric both ways. */
+    .glitch-link.menu-active { opacity: 1; }
+    .glitch-link.glitch-burst { opacity: 1; }
+
+    /* SUBMENU DROPDOWN */
     .submenu-wrapper {
       height: 0;
       margin: 0;
@@ -128,59 +109,128 @@
       transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .submenu {
-      min-height: 0; 
+      min-height: 0;
       display: flex;
       flex-direction: column;
-      gap: 12px; 
+      gap: 12px;
       padding-top: 15px;
       margin: 0;
       padding-left: 0;
     }
+
+    /* SUBMENU LINKS — underline draws in on hover (0.6s), snaps out on leave (0.1s).
+       The trick: default transition controls the leave, hover transition controls the enter. */
     .submenu a {
       font-size: 0.8rem;
       opacity: 0.7;
       text-decoration: none;
       color: inherit;
       cursor: pointer;
-      transition: opacity 0.3s ease;
+      display: inline-block;
+      /* Underline implemented as a background gradient growing from 0 to 100% width */
+      background-image: linear-gradient(currentColor, currentColor);
+      background-size: 0% 1px;
+      background-repeat: no-repeat;
+      background-position: left bottom;
+      /* Default transition = snap-out speed */
+      transition: opacity 0.3s ease, background-size 0.1s ease;
     }
-    .submenu a:hover { opacity: 1; }
+    .submenu a:hover {
+      opacity: 1;
+      background-size: 100% 1px;
+      /* Hover transition = draw-in speed */
+      transition: opacity 0.3s ease, background-size 0.6s ease;
+    }
+
+    /* SECTION LINK — the "words →" style link at the bottom of each dropdown */
+    .submenu-section-link {
+      opacity: 0.4 !important;
+      font-size: 0.72rem !important;
+      letter-spacing: 0.06em;
+    }
+    .submenu-section-link:hover {
+      opacity: 0.75 !important;
+    }
+
+    /* Thin rule separating section link from the rest */
+    .submenu-rule {
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: rgba(150, 150, 150, 0.3);
+      margin: 4px auto 0;
+    }
+
+    /* CLOSING PHRASE */
+    .site-footer {
+      position: fixed;
+      bottom: 7vh;
+      left: 0;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .site-footer-rule {
+      width: 32px;
+      height: 1px;
+      background: rgba(150, 150, 150, 0.3);
+    }
+
+    .site-footer-phrase {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      opacity: 0.35;
+    }
   </style>
 </head>
 <body>
   <ul>
     <li><a href="/about-me.html" class="main-link glitch-link">about me</a></li>
-    
+
     <li>
-      <a class="main-link glitch-link" onclick="toggleMenu(this, event)">texts</a>
+      <a class="main-link glitch-link" onclick="toggleMenu(this, event)">words</a>
       <div class="submenu-wrapper">
         <ul class="submenu">
           <li><a href="/curated.html">curated</a></li>
           <li><a href="/the-loop.html">the loop</a></li>
+          <li><span class="submenu-rule"></span></li>
+          <li><a href="/words.html" class="submenu-section-link">words &rarr;</a></li>
         </ul>
       </div>
     </li>
+
     <li>
-      <a class="main-link glitch-link" onclick="toggleMenu(this, event)">audio</a>
+      <a class="main-link glitch-link" onclick="toggleMenu(this, event)">sounds</a>
       <div class="submenu-wrapper">
         <ul class="submenu">
           <li><a href="/releases.html">releases</a></li>
-          <li><a href="/sketches.html">sketches</a></li>
+          <li><span class="submenu-rule"></span></li>
+          <li><a href="/sounds.html" class="submenu-section-link">sounds &rarr;</a></li>
         </ul>
       </div>
     </li>
+
     <li>
-      <a class="main-link glitch-link" onclick="toggleMenu(this, event)">visuals</a>
+      <a class="main-link glitch-link" onclick="toggleMenu(this, event)">colors</a>
       <div class="submenu-wrapper">
         <ul class="submenu">
           <li><a href="/studies.html">studies</a></li>
           <li><a href="/glimpses.html">glimpses</a></li>
+          <li><span class="submenu-rule"></span></li>
+          <li><a href="/colors.html" class="submenu-section-link">colors &rarr;</a></li>
         </ul>
       </div>
     </li>
-    
-    <li><a href="https://instagram.com/zamkim" target="_blank" rel="noopener noreferrer" class="main-link glitch-link">@zamkim</a></li>
   </ul>
+
+  <div class="site-footer">
+    <div class="site-footer-rule"></div>
+    <span class="site-footer-phrase">i hope you find something that stays with you.</span>
+  </div>
+
   <script>
     const topLevelMenu = document.querySelector('body > ul');
     const topLevelItems = topLevelMenu.querySelectorAll(':scope > li');
@@ -201,11 +251,8 @@
       const parentItem = element.closest('li');
       const isOpen = wrapper.classList.contains('open');
 
-      // Close every dropdown first (animates them back to 0)
       closeAllMenus();
 
-      // If the clicked one wasn't already open, open it by measuring
-      // its real content height and animating to that exact value
       if (!isOpen) {
         const submenu = wrapper.querySelector('.submenu');
         const fullHeight = submenu.scrollHeight;
@@ -217,7 +264,7 @@
       }
     }
 
-    // Click anywhere outside an open dropdown's link/submenu closes it
+    // Click outside closes dropdown
     document.addEventListener('click', (e) => {
       const openWrapper = document.querySelector('.submenu-wrapper.open');
       if (!openWrapper) return;
@@ -227,18 +274,16 @@
       }
     });
 
-    // INFINITE GLITCH LOOP (while a dropdown is open)
+    // INFINITE GLITCH LOOP
     let glitchTimeoutId = null;
     let glitchActiveLink = null;
 
     function randomDuration() {
-      return 0.1 + Math.random() * 0.6; // seconds, between 0.1 and 0.7
+      return 0.1 + Math.random() * 0.6;
     }
 
     function runGlitchBurst(link) {
       const burstSeconds = randomDuration();
-      // Clear the animation, force a reflow, then set it fresh — this is
-      // the most reliable way to restart a CSS animation on mobile browsers
       link.style.animation = 'none';
       void link.offsetWidth;
       link.style.animation = `rgb-split-glitch ${burstSeconds}s linear`;
@@ -287,15 +332,11 @@
       const isExternal = link.target === '_blank' || href.startsWith('http');
       const isAnchorOnly = href.startsWith('#');
       const isJsHandled = link.hasAttribute('onclick');
-
       if (isExternal || isAnchorOnly || isJsHandled) return;
-
       link.addEventListener('click', (e) => {
         e.preventDefault();
         document.body.classList.remove('loaded');
-        setTimeout(() => {
-          window.location.href = href;
-        }, 350);
+        setTimeout(() => { window.location.href = href; }, 350);
       });
     });
   </script>
