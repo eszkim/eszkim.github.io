@@ -2,19 +2,19 @@
 <html lang="en">
 <head>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-D9CT5YRB0V"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-D9CT5YRB0V');
-</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-D9CT5YRB0V"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-D9CT5YRB0V');
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ZamKim</title>
+  <title>Studies | ZamKim</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&family=Spectral:wght@400;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&family=Spectral:wght@400;600&family=JetBrains+Mono:wght@400&display=swap');
+
     body {
       font-family: 'Spectral', serif;
       background-color: #f0eee9;
@@ -23,19 +23,18 @@
       justify-content: center;
       padding: 8vh 20px;
       margin: 0;
-      min-height: 100vh;
       -webkit-tap-highlight-color: transparent;
       opacity: 0;
       transition: opacity 0.35s ease;
     }
-    body.loaded {
-      opacity: 1;
-    }
-    
+    body.loaded { opacity: 1; }
+
     @media (prefers-color-scheme: dark) {
       body { background-color: #161514; color: #dcdad5; }
     }
+
     .nav-font { font-family: 'Nanum Myeongjo', serif; }
+
     @keyframes rgb-split-glitch {
       0%   { text-shadow: none; transform: translate(0, 0); }
       10%  { text-shadow: 6px 0 0px rgba(255,0,0,0.8), -6px 0 0px rgba(0,255,255,0.8); transform: translate(-5px, 1px); }
@@ -47,46 +46,262 @@
       80%  { text-shadow: 2px 0 0px rgba(255,0,0,0.3), -2px 0 0px rgba(0,255,255,0.3); transform: translate(-1px, 0); }
       100% { text-shadow: none; transform: translate(0, 0); }
     }
-    .glitch-link:hover { opacity: 1; animation: rgb-split-glitch 0.6s linear both; }
-    .back-btn {
-      color: inherit; text-decoration: none; font-size: 0.95rem; opacity: 0.5;
-      transition: opacity 0.3s ease;
-      display: inline-block; margin-bottom: 24px; letter-spacing: 0.1em; cursor: pointer;
+    .glitch-link:hover {
+      opacity: 1;
+      animation: rgb-split-glitch 0.6s linear both;
     }
-    .container { width: 100%; max-width: 720px; }
+
+    .back-btn {
+      color: inherit;
+      text-decoration: none;
+      font-size: 0.95rem;
+      opacity: 0.5;
+      transition: opacity 0.3s ease;
+      display: inline-block;
+      margin-bottom: 24px;
+      letter-spacing: 0.1em;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 900px;
+    }
+
     .page-title {
       font-family: 'Nanum Myeongjo', serif;
-      font-size: 2rem;
+      font-size: 1.75rem;
       font-weight: bold;
       letter-spacing: -0.02em;
-      margin-bottom: 32px;
-      border-bottom: 1px solid rgba(150, 150, 150, 0.2);
-      padding-bottom: 24px;
+      margin-bottom: 8px;
     }
-    .placeholder-note {
-      opacity: 0.6;
-      font-style: italic;
+
+    .page-subtitle {
       font-size: 0.95rem;
+      line-height: 1.7;
+      opacity: 0.75;
+      border-bottom: 1px solid rgba(150, 150, 150, 0.2);
+      padding-bottom: 28px;
+      margin-bottom: 0;
+    }
+
+    /* STUDY ENTRY */
+    .study-entry {
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+      padding: 40px 0;
+      border-bottom: 1px solid rgba(150, 150, 150, 0.2);
+    }
+
+    /* IMAGE COLUMN — 2/3 width */
+    .study-image-col {
+      flex: 2;
+      min-width: 0;
+    }
+
+    .study-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      cursor: pointer;
+      transition: opacity 0.25s ease;
+    }
+    .study-img:hover { opacity: 0.88; }
+
+    /* INFO COLUMN — 1/3 width */
+    .study-info-col {
+      flex: 1;
+      min-width: 0;
+      padding-top: 4px;
+    }
+
+    .study-title {
+      font-family: 'Nanum Myeongjo', serif;
+      font-size: 1.05rem;
+      font-weight: bold;
+      letter-spacing: 0.02em;
+      margin-bottom: 12px;
+    }
+
+    .study-meta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      opacity: 0.45;
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    .study-notes {
+      font-size: 0.85rem;
+      line-height: 1.8;
+      opacity: 0.65;
+    }
+
+    /* MOBILE — stack vertically */
+    @media (max-width: 600px) {
+      .study-entry {
+        flex-direction: column;
+        gap: 20px;
+      }
+      .study-info-col {
+        padding-top: 0;
+      }
+    }
+
+    /* LIGHTBOX */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.88);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+      cursor: pointer;
+    }
+    .lightbox.visible {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 90vh;
+      width: auto;
+      height: auto;
+      display: block;
+      object-fit: contain;
     }
   </style>
 </head>
 <body>
   <div class="container">
+
     <a href="/" class="back-btn nav-font glitch-link">[ &larr; menu ]</a>
-    <div class="page-title">[page title here]</div>
-    <p class="placeholder-note">Under construction.</p>
+
+    <div class="page-title">studies</div>
+    <div class="page-subtitle">Composed photography. Images made with intention.</div>
+
+    <div id="studies-container"></div>
+
+  </div>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <img id="lightbox-img" src="" alt="">
   </div>
 
   <script>
-    // PAGE FADE TRANSITION (see index.html for full explanation)
-    window.addEventListener('DOMContentLoaded', () => {
-      document.body.classList.add('loaded');
+    // ─── ADD YOUR PHOTOS HERE ─────────────────────────────────────────────────
+    // Each entry needs a src (path to image in your repo).
+    // title, date, location, and notes are all optional — leave out any you
+    // don't want and it simply won't appear.
+    //
+    // Example:
+    // {
+    //   src: '/studies/photo-name.jpg',
+    //   title: 'Composition Title',
+    //   date: 'Jun 2026',
+    //   location: 'Seoul, Korea',
+    //   notes: 'Optional note about the image.'
+    // },
+    const studies = [
+      {
+        src: '/studies/polluting-pillars.jpg',
+        title: 'Polluting Pillars',
+        date: 'Feb 2025',
+        location: 'Seoul, South Korea'
+      },
+      {
+        src: '/studies/mom-and-son.jpg',
+        title: 'Mom & Son',
+        date: 'Sep 2025',
+        location: 'Gangneung, South Korea'
+      },
+      {
+        src: '/studies/osaka-castle.jpg',
+        title: 'Osaka Castle',
+        date: 'May 2025',
+        location: 'Osaka, Japan'
+      }
+    ];
+    // ─────────────────────────────────────────────────────────────────────────
+
+    const container = document.getElementById('studies-container');
+
+    if (studies.length === 0) {
+      container.innerHTML = '<div style="padding: 48px 0; opacity: 0.35; font-size: 0.9rem;">coming soon.</div>';
+    } else {
+      studies.forEach(study => {
+        const entry = document.createElement('div');
+        entry.className = 'study-entry';
+
+        // Build meta string from available fields
+        const metaParts = [];
+        if (study.date) metaParts.push(study.date);
+        if (study.location) metaParts.push(study.location);
+        const metaHtml = metaParts.length
+          ? `<div class="study-meta">${metaParts.join(' &mdash; ')}</div>`
+          : '';
+
+        const notesHtml = study.notes
+          ? `<div class="study-notes">${study.notes}</div>`
+          : '';
+
+        const titleHtml = study.title
+          ? `<div class="study-title">${study.title}</div>`
+          : '';
+
+        entry.innerHTML = `
+          <div class="study-image-col">
+            <img
+              src="${study.src}"
+              alt="${study.title || ''}"
+              class="study-img"
+              loading="lazy"
+            >
+          </div>
+          <div class="study-info-col">
+            ${titleHtml}
+            ${metaHtml}
+            ${notesHtml}
+          </div>
+        `;
+
+        // Lightbox on image click
+        entry.querySelector('.study-img').addEventListener('click', () => {
+          openLightbox(study.src, study.title || '');
+        });
+
+        container.appendChild(entry);
+      });
+    }
+
+    // LIGHTBOX
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+
+    function openLightbox(src, alt) {
+      lightboxImg.src = src;
+      lightboxImg.alt = alt;
+      lightbox.classList.add('visible');
+    }
+
+    lightbox.addEventListener('click', () => {
+      lightbox.classList.remove('visible');
+    });
+
+    // PAGE FADE
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        document.body.classList.add('loaded');
+      });
     });
 
     window.addEventListener('pageshow', (e) => {
-      if (e.persisted) {
-        document.body.classList.add('loaded');
-      }
+      if (e.persisted) document.body.classList.add('loaded');
     });
 
     document.querySelectorAll('a[href]').forEach(link => {
@@ -94,15 +309,11 @@
       const isExternal = link.target === '_blank' || href.startsWith('http');
       const isAnchorOnly = href.startsWith('#');
       const isJsHandled = link.hasAttribute('onclick');
-
       if (isExternal || isAnchorOnly || isJsHandled) return;
-
       link.addEventListener('click', (e) => {
         e.preventDefault();
         document.body.classList.remove('loaded');
-        setTimeout(() => {
-          window.location.href = href;
-        }, 350);
+        setTimeout(() => { window.location.href = href; }, 350);
       });
     });
   </script>
