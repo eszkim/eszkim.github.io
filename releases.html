@@ -2,19 +2,19 @@
 <html lang="en">
 <head>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-D9CT5YRB0V"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-D9CT5YRB0V');
-</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-D9CT5YRB0V"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-D9CT5YRB0V');
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ZamKim</title>
+  <title>Releases | ZamKim</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&family=Spectral:wght@400;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&family=Spectral:wght@400;600&family=JetBrains+Mono:wght@400&display=swap');
+
     body {
       font-family: 'Spectral', serif;
       background-color: #f0eee9;
@@ -23,19 +23,18 @@
       justify-content: center;
       padding: 8vh 20px;
       margin: 0;
-      min-height: 100vh;
       -webkit-tap-highlight-color: transparent;
       opacity: 0;
       transition: opacity 0.35s ease;
     }
-    body.loaded {
-      opacity: 1;
-    }
-    
+    body.loaded { opacity: 1; }
+
     @media (prefers-color-scheme: dark) {
       body { background-color: #161514; color: #dcdad5; }
     }
+
     .nav-font { font-family: 'Nanum Myeongjo', serif; }
+
     @keyframes rgb-split-glitch {
       0%   { text-shadow: none; transform: translate(0, 0); }
       10%  { text-shadow: 6px 0 0px rgba(255,0,0,0.8), -6px 0 0px rgba(0,255,255,0.8); transform: translate(-5px, 1px); }
@@ -47,46 +46,188 @@
       80%  { text-shadow: 2px 0 0px rgba(255,0,0,0.3), -2px 0 0px rgba(0,255,255,0.3); transform: translate(-1px, 0); }
       100% { text-shadow: none; transform: translate(0, 0); }
     }
-    .glitch-link:hover { opacity: 1; animation: rgb-split-glitch 0.6s linear both; }
-    .back-btn {
-      color: inherit; text-decoration: none; font-size: 0.95rem; opacity: 0.5;
-      transition: opacity 0.3s ease;
-      display: inline-block; margin-bottom: 24px; letter-spacing: 0.1em; cursor: pointer;
+    .glitch-link:hover {
+      opacity: 1;
+      animation: rgb-split-glitch 0.6s linear both;
     }
-    .container { width: 100%; max-width: 720px; }
+
+    .back-btn {
+      color: inherit;
+      text-decoration: none;
+      font-size: 0.95rem;
+      opacity: 0.5;
+      transition: opacity 0.3s ease;
+      display: inline-block;
+      margin-bottom: 24px;
+      letter-spacing: 0.1em;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 800px;
+    }
+
     .page-title {
       font-family: 'Nanum Myeongjo', serif;
-      font-size: 2rem;
+      font-size: 1.75rem;
       font-weight: bold;
       letter-spacing: -0.02em;
-      margin-bottom: 32px;
+      margin-bottom: 28px;
       border-bottom: 1px solid rgba(150, 150, 150, 0.2);
       padding-bottom: 24px;
     }
-    .placeholder-note {
-      opacity: 0.6;
-      font-style: italic;
-      font-size: 0.95rem;
+
+    /* ── DESKTOP: three cards side by side ── */
+    .cards {
+      display: flex;
+      gap: 0;
+      align-items: stretch;
+    }
+
+    .card {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: inherit;
+      padding: 40px 24px;
+      border-right: 1px solid rgba(150, 150, 150, 0.15);
+      transition: opacity 0.25s ease;
+      text-align: center;
+    }
+    .card:last-child { border-right: none; }
+    .card:hover { opacity: 0.6; }
+
+    /* Logo area — fixed height so all cards stay aligned */
+    .card-logo-area {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .card-logo {
+      max-height: 72px;
+      max-width: 160px;
+      width: auto;
+      object-fit: contain;
+      opacity: 0.85;
+    }
+
+    /* For cards without a logo, show the name as styled text */
+    .card-logo-text {
+      font-family: 'Nanum Myeongjo', serif;
+      font-size: 1.15rem;
+      font-weight: bold;
+      letter-spacing: 0.05em;
+      opacity: 0.75;
+    }
+
+    .card-caption {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      opacity: 0.4;
+    }
+
+    /* ── MOBILE: stacked rows with thumbnail ── */
+    @media (max-width: 560px) {
+      .cards {
+        flex-direction: column;
+        gap: 0;
+      }
+
+      .card {
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 20px 0;
+        border-right: none;
+        border-bottom: 1px solid rgba(150, 150, 150, 0.15);
+        text-align: left;
+        gap: 16px;
+      }
+      .card:last-child { border-bottom: none; }
+
+      .card-logo-area {
+        height: 40px;
+        width: 40px;
+        flex-shrink: 0;
+        margin-bottom: 0;
+      }
+
+      .card-logo {
+        max-height: 40px;
+        max-width: 40px;
+      }
+
+      .card-logo-text {
+        font-size: 0.85rem;
+      }
+
+      .card-caption {
+        font-size: 0.68rem;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
+
     <a href="/" class="back-btn nav-font glitch-link">[ &larr; menu ]</a>
-    <div class="page-title">[page title here]</div>
-    <p class="placeholder-note">Under construction.</p>
+
+    <div class="page-title">releases</div>
+
+    <div class="cards">
+
+      <!-- ─ NEW BAND ──────────────────────────────────────────────────────────
+           Update href to /releases/[band-name].html when ready.
+           Add logo: replace card-logo-text with an <img class="card-logo"> -->
+      <a href="/releases/new-band.html" class="card">
+        <div class="card-logo-area">
+          <span class="card-logo-text">Band Name</span>
+        </div>
+        <div class="card-caption">as Band Name</div>
+      </a>
+
+      <!-- ─ SOLO ──────────────────────────────────────────────────────────── -->
+      <a href="/releases/solo.html" class="card">
+        <div class="card-logo-area">
+          <span class="card-logo-text">ZamKim</span>
+        </div>
+        <div class="card-caption">as ZamKim</div>
+      </a>
+
+      <!-- ─ STARGAZING ─────────────────────────────────────────────────────
+           Update logo src path to match your repo. -->
+      <a href="/releases/stargazing.html" class="card">
+        <div class="card-logo-area">
+          <img
+            src="/logos/stargazing-logo.png"
+            alt="StarGazing"
+            class="card-logo"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+          >
+          <span class="card-logo-text" style="display:none;">StarGazing</span>
+        </div>
+        <div class="card-caption">as StarGazing</div>
+      </a>
+
+    </div>
   </div>
 
   <script>
-    // PAGE FADE TRANSITION (see index.html for full explanation)
-    window.addEventListener('DOMContentLoaded', () => {
-      document.body.classList.add('loaded');
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        document.body.classList.add('loaded');
+      });
     });
 
     window.addEventListener('pageshow', (e) => {
-      if (e.persisted) {
-        document.body.classList.add('loaded');
-      }
+      if (e.persisted) document.body.classList.add('loaded');
     });
 
     document.querySelectorAll('a[href]').forEach(link => {
@@ -94,15 +235,11 @@
       const isExternal = link.target === '_blank' || href.startsWith('http');
       const isAnchorOnly = href.startsWith('#');
       const isJsHandled = link.hasAttribute('onclick');
-
       if (isExternal || isAnchorOnly || isJsHandled) return;
-
       link.addEventListener('click', (e) => {
         e.preventDefault();
         document.body.classList.remove('loaded');
-        setTimeout(() => {
-          window.location.href = href;
-        }, 350);
+        setTimeout(() => { window.location.href = href; }, 350);
       });
     });
   </script>
