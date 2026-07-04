@@ -13,47 +13,57 @@
 
 <url>
   <loc>https://zamkim.com/</loc>
-  <lastmod>2026-06-30T05:34:24+00:00</lastmod>
+  <lastmod>2026-07-04T01:52:39+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
   <loc>https://zamkim.com/about-me.html</loc>
-  <lastmod>2026-06-30T05:34:25+00:00</lastmod>
+  <lastmod>2026-07-04T01:52:39+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://zamkim.com/curated.html</loc>
-  <lastmod>2026-06-30T05:34:24+00:00</lastmod>
+  <lastmod>2026-07-04T01:52:39+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://zamkim.com/the-loop.html</loc>
-  <lastmod>2026-06-30T05:34:24+00:00</lastmod>
+  <lastmod>2026-07-04T01:52:39+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://zamkim.com/words.html</loc>
+  <lastmod>2026-07-04T01:52:39+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://zamkim.com/releases.html</loc>
-  <lastmod>2026-06-30T05:34:25+00:00</lastmod>
+  <lastmod>2026-07-04T01:52:39+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://zamkim.com/sketches.html</loc>
-  <lastmod>2026-06-30T05:34:24+00:00</lastmod>
+  <loc>https://zamkim.com/sounds.html</loc>
+  <lastmod>2026-07-04T01:52:39+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://zamkim.com/studies.html</loc>
-  <lastmod>2026-06-30T05:34:24+00:00</lastmod>
+  <lastmod>2026-07-04T01:52:39+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://zamkim.com/glimpses.html</loc>
-  <lastmod>2026-06-30T05:34:24+00:00</lastmod>
+  <lastmod>2026-07-04T01:52:39+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://zamkim.com/colors.html</loc>
+  <lastmod>2026-07-04T01:52:39+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://zamkim.com/the-loop/the-manifesto.html</loc>
-  <lastmod>2026-06-30T05:34:24+00:00</lastmod>
+  <lastmod>2026-07-04T01:52:39+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 
