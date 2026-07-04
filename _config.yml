@@ -1,0 +1,4 @@
+url: "https://zamkim.com"
+
+plugins:
+  - jekyll-sitemap
