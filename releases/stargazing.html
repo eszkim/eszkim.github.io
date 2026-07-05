@@ -2,19 +2,19 @@
 <html lang="en">
 <head>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-D9CT5YRB0V"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-D9CT5YRB0V');
-</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-D9CT5YRB0V"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-D9CT5YRB0V');
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ZamKim</title>
+  <title>StarGazing | Releases | ZamKim</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&family=Spectral:wght@400;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&family=Spectral:wght@400;600&family=JetBrains+Mono:wght@400&display=swap');
+
     body {
       font-family: 'Spectral', serif;
       background-color: #f0eee9;
@@ -23,19 +23,18 @@
       justify-content: center;
       padding: 8vh 20px;
       margin: 0;
-      min-height: 100vh;
       -webkit-tap-highlight-color: transparent;
       opacity: 0;
       transition: opacity 0.35s ease;
     }
-    body.loaded {
-      opacity: 1;
-    }
-    
+    body.loaded { opacity: 1; }
+
     @media (prefers-color-scheme: dark) {
       body { background-color: #161514; color: #dcdad5; }
     }
+
     .nav-font { font-family: 'Nanum Myeongjo', serif; }
+
     @keyframes rgb-split-glitch {
       0%   { text-shadow: none; transform: translate(0, 0); }
       10%  { text-shadow: 6px 0 0px rgba(255,0,0,0.8), -6px 0 0px rgba(0,255,255,0.8); transform: translate(-5px, 1px); }
@@ -47,46 +46,254 @@
       80%  { text-shadow: 2px 0 0px rgba(255,0,0,0.3), -2px 0 0px rgba(0,255,255,0.3); transform: translate(-1px, 0); }
       100% { text-shadow: none; transform: translate(0, 0); }
     }
-    .glitch-link:hover { opacity: 1; animation: rgb-split-glitch 0.6s linear both; }
+    .glitch-link:hover {
+      opacity: 1;
+      animation: rgb-split-glitch 0.6s linear both;
+    }
+
     .back-btn {
-      color: inherit; text-decoration: none; font-size: 0.95rem; opacity: 0.5;
-      transition: opacity 0.3s ease;
-      display: inline-block; margin-bottom: 24px; letter-spacing: 0.1em; cursor: pointer;
-    }
-    .container { width: 100%; max-width: 720px; }
-    .page-title {
-      font-family: 'Nanum Myeongjo', serif;
-      font-size: 2rem;
-      font-weight: bold;
-      letter-spacing: -0.02em;
-      margin-bottom: 32px;
-      border-bottom: 1px solid rgba(150, 150, 150, 0.2);
-      padding-bottom: 24px;
-    }
-    .placeholder-note {
-      opacity: 0.6;
-      font-style: italic;
+      color: inherit;
+      text-decoration: none;
       font-size: 0.95rem;
+      opacity: 0.5;
+      transition: opacity 0.3s ease;
+      display: inline-block;
+      margin-bottom: 24px;
+      letter-spacing: 0.1em;
     }
+
+    .container {
+      width: 100%;
+      max-width: 680px;
+    }
+
+    .band-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid rgba(150, 150, 150, 0.2);
+      margin-bottom: 0;
+    }
+
+    .band-logo {
+      height: 52px;
+      width: auto;
+      opacity: 0.85;
+    }
+    @media (prefers-color-scheme: dark) {
+      .band-logo { filter: invert(1); }
+    }
+
+    .band-logo-text {
+      font-family: 'Nanum Myeongjo', serif;
+      font-size: 1.4rem;
+      font-weight: bold;
+      letter-spacing: 0.03em;
+    }
+
+    .band-role {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      opacity: 0.4;
+      letter-spacing: 0.05em;
+      margin-top: 4px;
+    }
+
+    .release {
+      padding: 32px 0;
+      border-bottom: 1px solid rgba(150, 150, 150, 0.2);
+    }
+
+    .release-embed {
+      width: 100%;
+      margin-bottom: 14px;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .release-embed iframe {
+      width: 100%;
+      border: none;
+      display: block;
+    }
+
+    .release-row {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .release-title {
+      font-family: 'Nanum Myeongjo', serif;
+      font-size: 1rem;
+      font-weight: bold;
+      letter-spacing: 0.02em;
+    }
+
+    .release-year {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      opacity: 0.35;
+    }
+
+    .release-type {
+      font-size: 0.65rem;
+      letter-spacing: 0.05em;
+      padding: 1px 7px;
+      border-radius: 8px;
+      background: rgba(150, 150, 150, 0.12);
+      opacity: 0.55;
+    }
+
+    .release-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .release-link {
+      font-size: 0.7rem;
+      letter-spacing: 0.03em;
+      padding: 2px 9px;
+      border-radius: 10px;
+      background: rgba(150, 150, 150, 0.12);
+      color: inherit;
+      text-decoration: none;
+      opacity: 0.6;
+      transition: opacity 0.2s ease;
+    }
+    .release-link:hover { opacity: 1; }
   </style>
 </head>
 <body>
   <div class="container">
-    <a href="/" class="back-btn nav-font glitch-link">[ &larr; menu ]</a>
-    <div class="page-title">[page title here]</div>
-    <p class="placeholder-note">Under construction.</p>
+
+    <a href="/releases.html" class="back-btn nav-font glitch-link">[ &larr; releases ]</a>
+
+    <div class="band-header">
+      <div>
+        <img
+          src="/images/StarGazing-logo.png"
+          alt="StarGazing"
+          class="band-logo"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+        >
+        <span class="band-logo-text" style="display:none;">StarGazing</span>
+        <div class="band-role" style="display:none;"></div>
+      </div>
+    </div>
+
+    <div id="releases-container"></div>
+
   </div>
 
   <script>
-    // PAGE FADE TRANSITION (see index.html for full explanation)
-    window.addEventListener('DOMContentLoaded', () => {
-      document.body.classList.add('loaded');
+    // ─── RELEASES ─────────────────────────────────────────────────────────────
+    // Newest first. For the embed URL: SoundCloud → track → Share → Embed →
+    // copy the src="..." value from the iframe code.
+    // type: 'single', 'ep', or 'album' (sets embed player height automatically)
+
+    const releases = [
+      {
+        title: 'Invicta',
+        year: '2022',
+        type: 'single',
+        embed: 'https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/stargazingband/invicta&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false',
+        links: [
+          { label: 'Spotify', url: 'https://open.spotify.com/album/4ddvzCHoTwjz5qZqLkJwhq' },
+          { label: 'Apple Music', url: 'https://music.apple.com/us/album/invicta-single/1640637012' },
+          { label: 'YouTube', url: 'https://youtu.be/2s_9N3dA3DY' },
+          { label: 'Melon', url: 'https://www.melon.com/album/detail.htm?albumId=11033764' },
+          { label: 'Bugs', url: 'https://music.bugs.co.kr/track/32624666' }
+        ]
+      },
+      {
+        title: '그대는 알까요',
+        year: '2022',
+        type: 'single',
+        embed: 'https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/stargazingband/nanana&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false',
+        links: [
+          { label: 'Spotify', url: 'https://open.spotify.com/album/67XBwuXNVYAxdbQSnRSQK9' },
+          { label: 'Apple Music', url: 'https://music.apple.com/us/album/%EA%B7%B8%EB%8C%80%EB%8A%94-%EC%95%8C%EA%B9%8C%EC%9A%94-single/1621995490' },
+          { label: 'YouTube', url: 'https://youtu.be/r8RgmQYn8OU' },
+          { label: 'Melon', url: 'https://www.melon.com/album/detail.htm?albumId=10939893' },
+          { label: 'Bugs', url: 'https://music.bugs.co.kr/track/32533846' }
+        ]
+      },
+      {
+        title: 'Callused',
+        year: '2021',
+        type: 'single',
+        embed: 'https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/stargazingband/callused&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false',
+        links: [
+          { label: 'Spotify', url: 'https://open.spotify.com/album/5SHB9WAiKuK4MiltmZns5U' },
+          { label: 'Apple Music', url: 'https://music.apple.com/us/album/callused-single/1592670845' },
+          { label: 'YouTube', url: 'https://youtu.be/cpwxa8rQHLY' },
+          { label: 'Melon', url: 'https://www.melon.com/album/detail.htm?albumId=10758032' },
+          { label: 'Bugs', url: 'https://music.bugs.co.kr/track/32369321' }
+        ]
+      },
+      {
+        title: 'StarGazing',
+        year: '2021',
+        type: 'single',
+        embed: 'https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/stargazingband/stargazing&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false',
+        links: [
+          { label: 'Spotify', url: 'https://open.spotify.com/album/1DoFnwysxCBGQsNansUICi' },
+          { label: 'Apple Music', url: 'https://music.apple.com/us/album/stargazing-single/1562080711' },
+          { label: 'YouTube', url: 'https://youtu.be/jTvRwx7WFho' },
+          { label: 'Melon', url: 'https://www.melon.com/album/detail.htm?albumId=10589547' },
+          { label: 'Bugs', url: 'https://music.bugs.co.kr/track/32203147' }
+        ]
+      }
+    ];
+    // ─────────────────────────────────────────────────────────────────────────
+
+    const container = document.getElementById('releases-container');
+
+    releases.forEach(release => {
+      const el = document.createElement('div');
+      el.className = 'release';
+
+      const embedHeight = release.type === 'single' ? 120 : 300;
+
+      const embedHtml = release.embed
+        ? `<div class="release-embed">
+             <iframe src="${release.embed}" height="${embedHeight}" allow="autoplay" loading="lazy"></iframe>
+           </div>`
+        : '';
+
+      const linksHtml = release.links && release.links.length
+        ? `<div class="release-links">
+             ${release.links.map(l =>
+               `<a href="${l.url}" class="release-link" target="_blank" rel="noopener noreferrer">${l.label}</a>`
+             ).join('')}
+           </div>`
+        : '';
+
+      el.innerHTML = `
+        ${embedHtml}
+        <div class="release-row">
+          <span class="release-title">${release.title}</span>
+          <span class="release-year">${release.year}</span>
+          <span class="release-type">${release.type}</span>
+        </div>
+        ${linksHtml}
+      `;
+
+      container.appendChild(el);
+    });
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        document.body.classList.add('loaded');
+      });
     });
 
     window.addEventListener('pageshow', (e) => {
-      if (e.persisted) {
-        document.body.classList.add('loaded');
-      }
+      if (e.persisted) document.body.classList.add('loaded');
     });
 
     document.querySelectorAll('a[href]').forEach(link => {
@@ -94,17 +301,14 @@
       const isExternal = link.target === '_blank' || href.startsWith('http');
       const isAnchorOnly = href.startsWith('#');
       const isJsHandled = link.hasAttribute('onclick');
-
       if (isExternal || isAnchorOnly || isJsHandled) return;
-
       link.addEventListener('click', (e) => {
         e.preventDefault();
         document.body.classList.remove('loaded');
-        setTimeout(() => {
-          window.location.href = href;
-        }, 350);
+        setTimeout(() => { window.location.href = href; }, 350);
       });
     });
   </script>
 </body>
 </html>
+
