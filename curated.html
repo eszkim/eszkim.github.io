@@ -2,19 +2,19 @@
 <html lang="en">
 <head>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-D9CT5YRB0V"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-D9CT5YRB0V');
-</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-D9CT5YRB0V"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-D9CT5YRB0V');
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ZamKim</title>
+  <title>Curated | ZamKim</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&family=Spectral:wght@400;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&family=Spectral:wght@400;600&family=JetBrains+Mono:wght@400&display=swap');
+
     body {
       font-family: 'Spectral', serif;
       background-color: #f0eee9;
@@ -23,19 +23,18 @@
       justify-content: center;
       padding: 8vh 20px;
       margin: 0;
-      min-height: 100vh;
       -webkit-tap-highlight-color: transparent;
       opacity: 0;
       transition: opacity 0.35s ease;
     }
-    body.loaded {
-      opacity: 1;
-    }
-    
+    body.loaded { opacity: 1; }
+
     @media (prefers-color-scheme: dark) {
       body { background-color: #161514; color: #dcdad5; }
     }
+
     .nav-font { font-family: 'Nanum Myeongjo', serif; }
+
     @keyframes rgb-split-glitch {
       0%   { text-shadow: none; transform: translate(0, 0); }
       10%  { text-shadow: 6px 0 0px rgba(255,0,0,0.8), -6px 0 0px rgba(0,255,255,0.8); transform: translate(-5px, 1px); }
@@ -47,46 +46,145 @@
       80%  { text-shadow: 2px 0 0px rgba(255,0,0,0.3), -2px 0 0px rgba(0,255,255,0.3); transform: translate(-1px, 0); }
       100% { text-shadow: none; transform: translate(0, 0); }
     }
-    .glitch-link:hover { opacity: 1; animation: rgb-split-glitch 0.6s linear both; }
-    .back-btn {
-      color: inherit; text-decoration: none; font-size: 0.95rem; opacity: 0.5;
-      transition: opacity 0.3s ease;
-      display: inline-block; margin-bottom: 24px; letter-spacing: 0.1em; cursor: pointer;
+    .glitch-link:hover {
+      opacity: 1;
+      animation: rgb-split-glitch 0.6s linear both;
     }
-    .container { width: 100%; max-width: 720px; }
+
+    .back-btn {
+      color: inherit;
+      text-decoration: none;
+      font-size: 0.95rem;
+      opacity: 0.5;
+      transition: opacity 0.3s ease;
+      display: inline-block;
+      margin-bottom: 24px;
+      letter-spacing: 0.1em;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 680px;
+    }
+
     .page-title {
       font-family: 'Nanum Myeongjo', serif;
-      font-size: 2rem;
+      font-size: 1.75rem;
       font-weight: bold;
       letter-spacing: -0.02em;
-      margin-bottom: 32px;
-      border-bottom: 1px solid rgba(150, 150, 150, 0.2);
-      padding-bottom: 24px;
+      margin-bottom: 8px;
     }
-    .placeholder-note {
-      opacity: 0.6;
-      font-style: italic;
+
+    .page-subtitle {
       font-size: 0.95rem;
+      line-height: 1.7;
+      opacity: 0.75;
+      border-bottom: 1px solid rgba(150, 150, 150, 0.2);
+      padding-bottom: 28px;
+      margin-bottom: 0;
+    }
+
+    /* POEM ENTRY LINK */
+    .poem-entry {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      padding: 24px 0;
+      border-bottom: 1px solid rgba(150, 150, 150, 0.2);
+      transition: opacity 0.2s ease;
+    }
+    .poem-entry:hover { opacity: 0.65; }
+
+    /* TITLE — largest, boldest, most prominent */
+    .poem-title {
+      font-family: 'Nanum Myeongjo', serif;
+      font-size: 1.1rem;
+      font-weight: bold;
+      letter-spacing: 0.02em;
+      margin-bottom: 5px;
+    }
+
+    /* CAPTION — italic, clearly a description not a poem line */
+    .poem-caption {
+      font-size: 0.85rem;
+      font-style: italic;
+      opacity: 0.6;
+      margin-bottom: 10px;
+    }
+
+    /* FIRST LINE — the poem speaking for itself.
+       Preceded by a small open-quote marker so it's
+       instantly readable as a line from the poem. */
+    .poem-first-line {
+      font-size: 0.82rem;
+      opacity: 0.42;
+      line-height: 1.6;
+    }
+    .poem-first-line::before {
+      content: '\201C';
+      margin-right: 2px;
+      opacity: 0.6;
     }
   </style>
 </head>
 <body>
   <div class="container">
+
     <a href="/" class="back-btn nav-font glitch-link">[ &larr; menu ]</a>
-    <div class="page-title">[page title here]</div>
-    <p class="placeholder-note">Under construction.</p>
+
+    <div class="page-title">curated</div>
+    <div class="page-subtitle">Selected works given their own space.</div>
+
+    <div id="poems"></div>
+
   </div>
 
   <script>
-    // PAGE FADE TRANSITION (see index.html for full explanation)
-    window.addEventListener('DOMContentLoaded', () => {
-      document.body.classList.add('loaded');
+    // ─── ADD POEMS HERE ───────────────────────────────────────────────────────
+    // Each entry:
+    //   title     — the poem's title
+    //   caption   — one-line description
+    //   firstLine — opening line of the poem (as it appears in the poem)
+    //   href      — path to the poem's own page
+    //
+    // Newest first, or curated order — your call.
+
+    const poems = [
+      {
+        title: 'Silver-Skinned',
+        caption: 'Full of fingerprints. Empty of its own.',
+        firstLine: 'I reflect the weeping, the vain, the broken expressions;',
+        href: '/curated/silver-skinned.html'
+      }
+    ];
+    // ─────────────────────────────────────────────────────────────────────────
+
+    const container = document.getElementById('poems');
+
+    if (poems.length === 0) {
+      container.innerHTML = '<div style="padding: 48px 0; opacity: 0.35; font-size: 0.9rem;">coming soon.</div>';
+    } else {
+      poems.forEach(poem => {
+        const a = document.createElement('a');
+        a.className = 'poem-entry';
+        a.href = poem.href;
+        a.innerHTML = `
+          <div class="poem-title">${poem.title}</div>
+          <div class="poem-caption">${poem.caption}</div>
+          <div class="poem-first-line">${poem.firstLine}</div>
+        `;
+        container.appendChild(a);
+      });
+    }
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        document.body.classList.add('loaded');
+      });
     });
 
     window.addEventListener('pageshow', (e) => {
-      if (e.persisted) {
-        document.body.classList.add('loaded');
-      }
+      if (e.persisted) document.body.classList.add('loaded');
     });
 
     document.querySelectorAll('a[href]').forEach(link => {
@@ -94,17 +192,14 @@
       const isExternal = link.target === '_blank' || href.startsWith('http');
       const isAnchorOnly = href.startsWith('#');
       const isJsHandled = link.hasAttribute('onclick');
-
       if (isExternal || isAnchorOnly || isJsHandled) return;
-
       link.addEventListener('click', (e) => {
         e.preventDefault();
         document.body.classList.remove('loaded');
-        setTimeout(() => {
-          window.location.href = href;
-        }, 350);
+        setTimeout(() => { window.location.href = href; }, 350);
       });
     });
   </script>
 </body>
 </html>
+
