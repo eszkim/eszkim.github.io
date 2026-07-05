@@ -117,6 +117,11 @@
       opacity: 0.85;
     }
 
+    /* Invert logo in dark mode so dark-coloured logo stays visible */
+    @media (prefers-color-scheme: dark) {
+      .card-logo { filter: invert(1); }
+    }
+
     /* For cards without a logo, show the name as styled text */
     .card-logo-text {
       font-family: 'Nanum Myeongjo', serif;
@@ -184,13 +189,13 @@
     <div class="cards">
 
       <!-- ─ NEW BAND ──────────────────────────────────────────────────────────
-           Update href to /releases/[band-name].html when ready.
-           Add logo: replace card-logo-text with an <img class="card-logo"> -->
+           Update href, card-logo-text, and card-caption when you have a name.
+           Add a logo by replacing card-logo-text with an <img class="card-logo"> -->
       <a href="/releases/new-band.html" class="card">
         <div class="card-logo-area">
           <span class="card-logo-text">COMING SOON</span>
         </div>
-        <div class="card-caption">COMING SOON</div>
+        <div class="card-caption">coming soon</div>
       </a>
 
       <!-- ─ SOLO ──────────────────────────────────────────────────────────── -->
@@ -201,8 +206,7 @@
         <div class="card-caption">as ZamKim</div>
       </a>
 
-      <!-- ─ STARGAZING ─────────────────────────────────────────────────────
-           Update logo src path to match your repo. -->
+      <!-- ─ STARGAZING ─────────────────────────────────────────────────────── -->
       <a href="/releases/stargazing.html" class="card">
         <div class="card-logo-area">
           <img
