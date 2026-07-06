@@ -19,20 +19,13 @@
       opacity: 0;
       transition: opacity 0.35s ease;
     }
-    body.loaded {
-      opacity: 1;
-    }
+    body.loaded { opacity: 1; }
 
     @media (prefers-color-scheme: dark) {
-      body {
-        background-color: #161514;
-        color: #dcdad5;
-      }
+      body { background-color: #161514; color: #dcdad5; }
     }
 
-    .nav-font {
-      font-family: 'Nanum Myeongjo', serif;
-    }
+    .nav-font { font-family: 'Nanum Myeongjo', serif; }
 
     @keyframes rgb-split-glitch {
       0%   { text-shadow: none; transform: translate(0, 0); }
@@ -196,33 +189,39 @@
         <div class="armory-group">
           <div class="armory-label">[ thematic &amp; psychological ]</div>
           <div class="armory-list">
-            <div>+ Time Capsule (Suspended moments &amp; reverse chronology)</div>
-            <div>+ Inanimate POV (Perspective of objects / machines)</div>
-            <div>+ The Locked Room (Micro-spaces &amp; claustrophobia)</div>
-            <div>+ The Palm-Sized Universe (Total ban on macro-imagery)</div>
-            <div>+ The Kinetic Focus (Microscopic physical events &amp; mergers)</div>
-            <div>+ Blind Themes (Alienation, deafening silence, emotional evaporation)</div>
+            <div>Time Capsule (Suspended moments &amp; reverse chronology)</div>
+            <div>Inanimate POV (Perspective of objects / machines)</div>
+            <div>The Locked Room (Micro-spaces &amp; claustrophobia)</div>
+            <div>The Palm-Sized Universe (Total ban on macro-imagery)</div>
+            <div>The Kinetic Focus (Microscopic physical events &amp; mergers)</div>
+            <div>Blind Themes (Alienation, deafening silence, emotional evaporation)</div>
+            <div>The Combustion Cycle (Strict 4-phase mechanical progression: Intake, Compression, Power, Exhaust)</div>
+            <div>The Aperture Shift (Forced manipulation of physical depth of field: Micro &rarr; Local &rarr; Infinite)</div>
           </div>
         </div>
 
         <div class="armory-group">
           <div class="armory-label">[ sensory &amp; lexical handicaps ]</div>
           <div class="armory-list">
-            <div>+ Sensory Blackout (Strict bans on visual or auditory descriptions)</div>
-            <div>+ Taboo Lists (Banned environments, specific words, or identity pronouns)</div>
-            <div>+ The Adjective Ban (Zero descriptive adjectives allowed)</div>
-            <div>+ Required Anchors (4-Word chains &amp; locked single-syllable pivots)</div>
+            <div>Sensory Blackout (Strict bans on visual or auditory descriptions)</div>
+            <div>Taboo Lists (Banned environments, specific words, or identity pronouns)</div>
+            <div>The Adjective Ban (Zero descriptive adjectives allowed)</div>
+            <div>Required Anchors (4-Word chains &amp; locked single-syllable pivots)</div>
+            <div>The Signal Chain (Continuous input/output loops where meaning shifts across stanzas)</div>
+            <div>The Lipogram Lock (Total ban on specific, highly common letters/vowels)</div>
           </div>
         </div>
 
         <div class="armory-group">
           <div class="armory-label">[ structural &amp; grammatical traps ]</div>
           <div class="armory-list">
-            <div>+ Grid Locks &amp; Countdowns (Fixed stanza limits like 3x4, 5x2, or shrinking 5-4-3-2-1)</div>
-            <div>+ Syllable Topography (Rigid math like 3-5-7 ladders or 5-3-1-3-5 hourglasses)</div>
-            <div>+ The Staccato (Strict 5-word limits per line/thought)</div>
-            <div>+ Breath Control (Zero punctuation runs &amp; infinite reading loops)</div>
-            <div>+ Syntax Locks (Imperative commands only, or zero declarative statements)</div>
+            <div>Grid Locks &amp; Countdowns (Fixed stanza limits like 3x4, 5x2, or shrinking 5-4-3-2-1)</div>
+            <div>Syllable Topography (Rigid math like 3-5-7 ladders or 5-3-1-3-5 hourglasses)</div>
+            <div>The Staccato (Strict 5-word limits per line/thought)</div>
+            <div>Breath Control (Zero punctuation runs &amp; infinite reading loops)</div>
+            <div>Syntax Locks (Imperative commands only, or zero declarative statements)</div>
+            <div>The Metronome (Aggressive rhythmic oscillation of word/syllable counts)</div>
+            <div>The Decaying Syllable (Strict mathematical degradation of space across stanzas)</div>
           </div>
         </div>
       </div>
@@ -242,9 +241,14 @@
   </div>
 
   <script>
-    // PAGE FADE TRANSITION (see index.html for full explanation)
-    window.addEventListener('DOMContentLoaded', () => {
-      document.body.classList.add('loaded');
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        document.body.classList.add('loaded');
+      });
+    });
+
+    window.addEventListener('pageshow', (e) => {
+      if (e.persisted) document.body.classList.add('loaded');
     });
 
     document.querySelectorAll('a[href]').forEach(link => {
@@ -252,18 +256,15 @@
       const isExternal = link.target === '_blank' || href.startsWith('http');
       const isAnchorOnly = href.startsWith('#');
       const isJsHandled = link.hasAttribute('onclick');
-
       if (isExternal || isAnchorOnly || isJsHandled) return;
-
       link.addEventListener('click', (e) => {
         e.preventDefault();
         document.body.classList.remove('loaded');
-        setTimeout(() => {
-          window.location.href = href;
-        }, 350);
+        setTimeout(() => { window.location.href = href; }, 350);
       });
     });
   </script>
 
 </body>
 </html>
+
