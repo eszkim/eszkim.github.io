@@ -84,7 +84,6 @@
       margin-bottom: 0;
     }
 
-    /* POEM ENTRY LINK */
     .poem-entry {
       display: block;
       text-decoration: none;
@@ -95,28 +94,23 @@
     }
     .poem-entry:hover { opacity: 0.65; }
 
-    /* TITLE — largest, boldest, most prominent */
     .poem-title {
       font-family: 'Nanum Myeongjo', serif;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       font-weight: bold;
       letter-spacing: 0.02em;
-      margin-bottom: 5px;
+      margin-bottom: 6px;
     }
 
-    /* CAPTION — italic, clearly a description not a poem line */
     .poem-caption {
-      font-size: 0.85rem;
+      font-size: 0.95rem;
       font-style: italic;
       opacity: 0.6;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
-    /* FIRST LINE — the poem speaking for itself.
-       Preceded by a small open-quote marker so it's
-       instantly readable as a line from the poem. */
     .poem-first-line {
-      font-size: 0.82rem;
+      font-size: 0.9rem;
       opacity: 0.42;
       line-height: 1.6;
     }
@@ -140,21 +134,12 @@
   </div>
 
   <script>
-    // ─── ADD POEMS HERE ───────────────────────────────────────────────────────
-    // Each entry:
-    //   title     — the poem's title
-    //   caption   — one-line description
-    //   firstLine — opening line of the poem (as it appears in the poem)
-    //   href      — path to the poem's own page
-    //
-    // Newest first, or curated order — your call.
-
     const poems = [
       {
         title: 'Imprint',
         caption: 'Some moments are measured by the traces they leave behind—or the ones they don\'t.',
-        firstLine: 'I feel the bead of sweat',
-        href: '/curated/imprint.html
+        firstLine: 'I feel the bead of sweat / Sliding down my temple,',
+        href: '/curated/imprint.html'
       },
       {
         title: 'Silver-Skinned',
@@ -163,7 +148,6 @@
         href: '/curated/silver-skinned.html'
       }
     ];
-    // ─────────────────────────────────────────────────────────────────────────
 
     const container = document.getElementById('poems');
 
