@@ -5,13 +5,20 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-D9CT5YRB0V"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
     gtag('js', new Date());
     gtag('config', 'G-D9CT5YRB0V');
   </script>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>온전한 연소 | ZamKim</title>
+
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&family=Spectral:wght@400;600&family=JetBrains+Mono:wght@400&display=swap');
 
@@ -27,25 +34,83 @@
       opacity: 0;
       transition: opacity 0.35s ease;
     }
-    body.loaded { opacity: 1; }
+
+    body.loaded {
+      opacity: 1;
+    }
 
     @media (prefers-color-scheme: dark) {
-      body { background-color: #161514; color: #dcdad5; }
+      body {
+        background-color: #161514;
+        color: #dcdad5;
+      }
     }
 
-    .nav-font { font-family: 'Nanum Myeongjo', serif; }
+    .nav-font {
+      font-family: 'Nanum Myeongjo', serif;
+    }
 
     @keyframes rgb-split-glitch {
-      0%   { text-shadow: none; transform: translate(0, 0); }
-      10%  { text-shadow: 6px 0 0px rgba(255,0,0,0.8), -6px 0 0px rgba(0,255,255,0.8); transform: translate(-5px, 1px); }
-      20%  { text-shadow: -7px 0 0px rgba(255,0,0,0.8), 7px 0 0px rgba(0,255,255,0.8); transform: translate(5px, -1px); }
-      30%  { text-shadow: 5px 0 0px rgba(255,0,0,0.7), -5px 0 0px rgba(0,255,255,0.7); transform: translate(-3px, 1px); }
-      40%  { text-shadow: -6px 0 0px rgba(255,0,0,0.8), 6px 0 0px rgba(0,255,255,0.8); transform: translate(4px, 0); }
-      50%  { text-shadow: 4px 0 0px rgba(255,0,0,0.6), -4px 0 0px rgba(0,255,255,0.6); transform: translate(-2px, -1px); }
-      65%  { text-shadow: -3px 0 0px rgba(255,0,0,0.5), 3px 0 0px rgba(0,255,255,0.5); transform: translate(2px, 0); }
-      80%  { text-shadow: 2px 0 0px rgba(255,0,0,0.3), -2px 0 0px rgba(0,255,255,0.3); transform: translate(-1px, 0); }
-      100% { text-shadow: none; transform: translate(0, 0); }
+      0% {
+        text-shadow: none;
+        transform: translate(0, 0);
+      }
+
+      10% {
+        text-shadow:
+          6px 0 0 rgba(255, 0, 0, 0.8),
+          -6px 0 0 rgba(0, 255, 255, 0.8);
+        transform: translate(-5px, 1px);
+      }
+
+      20% {
+        text-shadow:
+          -7px 0 0 rgba(255, 0, 0, 0.8),
+          7px 0 0 rgba(0, 255, 255, 0.8);
+        transform: translate(5px, -1px);
+      }
+
+      30% {
+        text-shadow:
+          5px 0 0 rgba(255, 0, 0, 0.7),
+          -5px 0 0 rgba(0, 255, 255, 0.7);
+        transform: translate(-3px, 1px);
+      }
+
+      40% {
+        text-shadow:
+          -6px 0 0 rgba(255, 0, 0, 0.8),
+          6px 0 0 rgba(0, 255, 255, 0.8);
+        transform: translate(4px, 0);
+      }
+
+      50% {
+        text-shadow:
+          4px 0 0 rgba(255, 0, 0, 0.6),
+          -4px 0 0 rgba(0, 255, 255, 0.6);
+        transform: translate(-2px, -1px);
+      }
+
+      65% {
+        text-shadow:
+          -3px 0 0 rgba(255, 0, 0, 0.5),
+          3px 0 0 rgba(0, 255, 255, 0.5);
+        transform: translate(2px, 0);
+      }
+
+      80% {
+        text-shadow:
+          2px 0 0 rgba(255, 0, 0, 0.3),
+          -2px 0 0 rgba(0, 255, 255, 0.3);
+        transform: translate(-1px, 0);
+      }
+
+      100% {
+        text-shadow: none;
+        transform: translate(0, 0);
+      }
     }
+
     .glitch-link:hover {
       opacity: 1;
       animation: rgb-split-glitch 0.6s linear both;
@@ -85,7 +150,7 @@
       margin-bottom: 10px;
     }
 
-    /* ONE-LINER CAPTION — sits just below meta, italicised, slightly more opacity */
+    /* ONE-LINER CAPTION */
     .poem-caption {
       font-size: 0.9rem;
       font-style: italic;
@@ -104,28 +169,43 @@
 
     /* POEM BODY */
     .poem-body {
+      font-family: 'Nanum Myeongjo', serif;
       font-size: 1rem;
       line-height: 2;
       white-space: pre-line;
     }
+
+    /* UNSPOKEN THOUGHTS */
+    .poem-body .thought {
+      font-style: italic;
+    }
   </style>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Poem",
-  "name": "Imprint",
-  "description": "The same ending can leave two people in different places..",
-  "dateCreated": "2026-08-02",
-  "inLanguage": "ko",
-  "url": "https://zamkim.com/curated/imprint.html",
-  "author": { "@type": "Person", "name": "ZamKim", "url": "https://zamkim.com" }
-}
-</script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Poem",
+    "name": "온전한 연소",
+    "description": "The same ending can leave two people in different places.",
+    "dateCreated": "2026-08-02",
+    "inLanguage": "ko",
+    "url": "https://zamkim.com/curated/onjeonhan-yeonso.html",
+    "author": {
+      "@type": "Person",
+      "name": "ZamKim",
+      "url": "https://zamkim.com"
+    }
+  }
+  </script>
 </head>
+
 <body>
   <div class="container">
 
-    <a href="/curated.html" class="back-btn nav-font glitch-link">[ &larr; curated ]</a>
+    <a
+      href="/curated.html"
+      class="back-btn nav-font glitch-link"
+    >[ &larr; curated ]</a>
 
     <div class="poem-title">온전한 연소</div>
 
@@ -135,7 +215,9 @@
       ~2 min read
     </div>
 
-    <div class="poem-caption">The same ending can leave two people in different places.</div>
+    <div class="poem-caption">
+      The same ending can leave two people in different places.
+    </div>
 
     <div class="poem-divider"></div>
 
@@ -145,17 +227,17 @@
 아무 일도 없었다는 듯한 인사 한마디.
 
 "난 잘 지냈지."
-네가 너무 보고 싶었어.
+<em class="thought">네가 너무 보고 싶었어.</em>
 
 "요즘 하루하루가 행복해."
-지옥에서 살아가는 느낌이야.
+<em class="thought">지옥에서 살아가는 느낌이야.</em>
 
 "나 진짜, 엄청 잘 살고 있어."
-너무 힘들어서 죽어버릴까 고민도 했어.
+<em class="thought">너무 힘들어서 죽어버릴까 고민도 했어.</em>
 
 "넌 잘 지냈어?"
 
-나보다 못 지냈길 바랐어.
+<em class="thought">나보다 못 지냈길 바랐어.
 
 아니.
 
@@ -163,7 +245,7 @@
 
 아니.
 그래도...
-나 없이도 행복했으면 좋겠어.
+나 없이도 행복했으면 좋겠어.</em>
 
 그녀는 담배를 반쯤만 피우고 먼저 안으로 들어갔다.
 손끝의 낯선 서늘함에 시선을 내렸다.
@@ -179,20 +261,32 @@
       });
     });
 
-    window.addEventListener('pageshow', (e) => {
-      if (e.persisted) document.body.classList.add('loaded');
+    window.addEventListener('pageshow', (event) => {
+      if (event.persisted) {
+        document.body.classList.add('loaded');
+      }
     });
 
-    document.querySelectorAll('a[href]').forEach(link => {
+    document.querySelectorAll('a[href]').forEach((link) => {
       const href = link.getAttribute('href');
-      const isExternal = link.target === '_blank' || href.startsWith('http');
+      const isExternal =
+        link.target === '_blank' ||
+        href.startsWith('http');
+
       const isAnchorOnly = href.startsWith('#');
       const isJsHandled = link.hasAttribute('onclick');
-      if (isExternal || isAnchorOnly || isJsHandled) return;
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
+
+      if (isExternal || isAnchorOnly || isJsHandled) {
+        return;
+      }
+
+      link.addEventListener('click', (event) => {
+        event.preventDefault();
         document.body.classList.remove('loaded');
-        setTimeout(() => { window.location.href = href; }, 350);
+
+        setTimeout(() => {
+          window.location.href = href;
+        }, 350);
       });
     });
   </script>
